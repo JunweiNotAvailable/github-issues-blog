@@ -48,6 +48,36 @@ nav a:hover {
 }
 aside {
   width: 224px;
+  height: calc(100vh - 52px);
+}
+aside * {
+  transition: all .2s;
+}
+.sidebar-button {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: .3rem;
+  cursor: pointer;
+}
+.sidebar-button:hover {
+  background: #f2f3f4;
+}
+aside span {
+  margin-left: 6px;
+}
+.sidebar-list {
+  max-height: 0px;
+}
+.sidebar-list .sidebar-button {
+  opacity: 0;
+}
+.sidebar-list.open {
+  max-height: 500px;
+}
+.sidebar-list.open .sidebar-button {
+  opacity: 1;
 }
 footer {
   font-size: 10px;
