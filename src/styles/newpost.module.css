@@ -1,0 +1,15 @@
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+.inputGroup input {
+  border: 1px solid #dadbdc;
+  border-radius: .4rem;
+  padding: .5rem;
+  outline: 2px solid transparent;
+  font-size: 14px;
+  transition: outline .2s;
+}
+.inputGroup input:focus {
+  outline-color: var(--color-secondary);
+}
