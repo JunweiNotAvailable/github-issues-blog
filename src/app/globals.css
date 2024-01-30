@@ -7,6 +7,7 @@
 :root {
   --color-primary: #24292e;
   --color-primary-hover: #2b3137;
+  --color-secondary-hover: #f2f3f4;
 }
 
 body {
@@ -27,13 +28,21 @@ body {
   font-family: 'Roboto Slab', serif;
   color: var(--color-primary);
 }
+nav {
+  display: flex;
+  align-items: center;
+}
 nav a {
   font-size: 13px;
-  padding: 4px 16px;
+  color: var(--color-primary);
 }
 nav a:hover {
-  color: #2b3137;
+  background: var(--color-secondary-hover);
 }
+nav > * {
+  cursor: pointer;
+  margin-left: 12px;
+} 
 .primary-button {
   background: var(--color-primary);
   color: #fff;
@@ -48,7 +57,16 @@ nav a:hover {
 }
 aside {
   width: 224px;
-  height: calc(100vh - 52px);
+  height: calc(100vh - 69px);
+}
+aside::-webkit-scrollbar {
+  width: 6px;
+  background: none;
+}
+aside::-webkit-scrollbar-thumb {
+  border: 1px solid transparent;
+  background: #eee;
+  border-radius: 1rem;
 }
 aside * {
   transition: all .2s;
@@ -60,9 +78,11 @@ aside * {
   padding: 8px 16px;
   border-radius: .3rem;
   cursor: pointer;
+  background: #fff;
+  margin-top: 2px;
 }
 .sidebar-button:hover {
-  background: #f2f3f4;
+  background: var(--color-secondary-hover);
 }
 aside span {
   margin-left: 6px;
@@ -81,4 +101,30 @@ aside span {
 }
 footer {
   font-size: 10px;
+}
+menu {
+  animation: fade-in-down .1s ease-out;
+  width: 224px;
+}
+@keyframes fade-in-down {
+  0% {
+    transform: translateY(-4px);
+    opacity: .5;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+menu > * {
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  font-size: 13px;
+}
+menu > *:hover {
+  background: var(--color-secondary-hover);
+}
+menu > * > :first-child {
+  margin-right: 8px;
 }
