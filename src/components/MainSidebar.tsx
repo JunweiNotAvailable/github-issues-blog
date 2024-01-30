@@ -7,7 +7,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
-const Sidebar = () => {
+const MainSidebar = () => {
 
   const labels = ['bug', 'documentation', 'duplicate', 'enhancement', 'good first issue', 'help wanted', 'invalid', 'question', 'wontfix'];
   const [isLabelsOpened, setIsLabelsOpened] = useState(true); // status of labels list - open/close
@@ -24,7 +24,7 @@ const Sidebar = () => {
         </div>
         {/* labels list */}
         <div className={`sidebar-list${isLabelsOpened ? ' open' : ''} flex flex-col ml-3 pl-1 border-l overflow-hidden`}>
-          {labels.map((label, i) => <Link className="sidebar-button text-xs" href={`/labels/${label}`}>{label}</Link>)}
+          {labels.map((label, i) => <Link key={`label-${label}`} className="sidebar-button text-xs" href={`/labels/${label}`}>{label}</Link>)}
         </div>
       </div>
       <Footer />
@@ -32,4 +32,4 @@ const Sidebar = () => {
   );
 }
  
-export default Sidebar;
+export default MainSidebar;

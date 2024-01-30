@@ -26,7 +26,7 @@ const Navbar = () => {
   return (
     <>
 
-      <div className={`border-b border-slate-200 pl-5 py-3 pr-3 flex justify-between items-center${session ? ' sticky' : ''} top-0 w-full box-border`}>
+      <div className={`border-b border-slate-200 pl-5 py-3 pr-3 flex justify-between items-center w-full box-border`}>
         
         {/* logo */}
         <Link className="flex items-center" href={'/'}>
@@ -34,7 +34,7 @@ const Navbar = () => {
         </Link>
         
         {/* nav menu / login button */}
-        <div className="flex items-center">
+        {status !== 'loading' && <div className="flex items-center">
           {session ?
             <nav>
               {/* new post button */}
@@ -45,8 +45,8 @@ const Navbar = () => {
               </div>
             </nav>
             :
-            <button className="primary-button ml-4" onClick={() => signIn('github')}>Sign In</button>}
-        </div>
+            <button className="primary-button ml-4" onClick={() => signIn('github')}>Log in</button>}
+        </div>}
 
       </div>
 
@@ -54,7 +54,7 @@ const Navbar = () => {
       {/* menu */}
       {<menu className={`${isMenuOpened ? '' : 'hidden '}fixed bg-white shadow py-1 border border-slate-200 rounded top-14 right-7 flex flex-col`}>
         <Link href={'/profile'}><Image src={'/icon-user.svg'} alt="" height={14} width={14} />Profile</Link>
-        <button onClick={() => signOut()}><Image src={'/icon-logout.svg'} alt="" height={14} width={14} />Logout</button>
+        <button onClick={() => signOut()}><Image src={'/icon-logout.svg'} alt="" height={14} width={14} />Log out</button>
       </menu>}
 
     </>

@@ -1,6 +1,6 @@
 "use client"
 
-import Sidebar from "@/components/Sidebar";
+import MainSidebar from "@/components/MainSidebar";
 import { useSession } from "next-auth/react";
 
 export default function Home() {
@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
     <div className="flex py-2 h-full box-border">
-      <Sidebar />
+      <MainSidebar />
       <main></main>
     </div>
   )
