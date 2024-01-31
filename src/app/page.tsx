@@ -10,7 +10,9 @@ export default function Home() {
   return (
     <div className="flex py-2 h-full box-border">
       <MainSidebar />
-      <main></main>
+      <main>
+        
+      </main>
     </div>
   )
 }

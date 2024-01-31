@@ -40,7 +40,6 @@ export const postIssue = async (username: string, repo: string, title: string, b
         'Content-Type': 'application/json',
       },
     });
-    console.log(response)
   } catch (error) {
     console.error('Error creating issue:', error);
     throw error;

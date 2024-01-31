@@ -9,7 +9,7 @@ import MarkdownEditor from "@/components/MarkdownEditor";
 import { labelColors, labels } from "@/utils/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { isDark, randInt } from "@/utils/functions";
+import { isDark } from "@/utils/functions";
 
 const NewPost = () => {
 
@@ -139,7 +139,7 @@ const NewPost = () => {
             </div>
             <div className={`flex mt-2`}>
               <input className={`${styles.input} border text-sm py-1 px-2 rounded flex-1 min-w-0`} placeholder="Add your own label" value={customLabelInput} onInput={(e: React.ChangeEvent<HTMLInputElement>) => setCustomLabelInput(e.target.value)} />
-              <button className={`${styles.submitButton} text-sm px-4 ml-1 rounded`} onClick={() => (customLabelInput.length > 0 && !selectedLabels.find(l => l.name === customLabelInput)) && setSelectedLabels(prev => [...prev, { name: customLabelInput, color: labelColors[randInt(0, labelColors.length)] }])}>Add</button>
+              <button className={`${styles.submitButton} text-sm px-4 ml-1 rounded`} onClick={() => (customLabelInput.length > 0 && !selectedLabels.find(l => l.name === customLabelInput)) && setSelectedLabels(prev => [...prev, { name: customLabelInput, color: '#e0e4e8' }])}>Add</button>
             </div>
           </div>
 
