@@ -11,7 +11,11 @@
   font-size: 14px;
   transition: outline .2s;
 }
-.inputGroup input:focus, .inputGroup textarea:focus {
+.input {
+  outline: 2px solid transparent;
+  transition: outline .2s;
+}
+.inputGroup input:focus, .inputGroup textarea:focus, .input:focus {
   outline-color: var(--color-secondary);
 }
 .inputGroup input::selection, .inputGroup textarea::selection {
@@ -46,4 +50,13 @@
 }
 .submitButton:hover {
   background: var(--color-primary-blue-hover);
+}
+.disabled {
+  background: #d1d1d2;
+}
+.disabled:hover {
+  background: #d1d1d2;
+}
+.selected {
+  background: var(--color-secondary-hover);
 }

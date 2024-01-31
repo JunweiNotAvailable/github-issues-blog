@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from '../styles/newpost.module.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBold, faCode, faHeading, faItalic, faLink, faListOl, faListUl } from "@fortawesome/free-solid-svg-icons";
@@ -16,12 +16,6 @@ const MarkdownEditor: React.FC<Props> = ({ source, setSource }) => {
 
   const textareaRef = useRef(null);
   const [mode, setMode] = useState('write'); // the current mode of editor - write/preview
-  const [history, setHistory] = useState<string[]>([source]);
-
-  useEffect(() => {
-    // save the history
-    setHistory(prev => [...prev, source]);
-  }, [source]);
 
   // insert markdown format 
   const insertMarkdownFormat = (format: string) => {
@@ -36,27 +30,42 @@ const MarkdownEditor: React.FC<Props> = ({ source, setSource }) => {
     const start = textarea.selectionStart;
     const end = textarea.selectionEnd;
 
+    // when format is list
     if (format === 'ol' || format === 'ul') {
       // insert list
       const lines = textarea.value.split('\n'); // array of all lines
       const currLineIndex = textarea.value.substring(0, start).split('\n').length - 1; // get index of line the cursor is on
       // combine all lines with list format
-      const newText = lines.reduce((prev, currLine, i) => {
-        if (i === currLineIndex) {
-          if (format === 'ol') { // numeric list
-            if (/^[-*]\s/.test(currLine)) currLine = currLine.replace(/^[-*]\s/, '');
-            currLine = (/^\d+\.\s/.test(currLine) ? currLine.replace(/^\d+\.\s/, '') : `1. ${currLine}`);
-          } else { // bullet list
-            if (/^\d+\.\s/.test(currLine)) currLine = currLine.replace(/^\d+\.\s/, '');
-            currLine = (/^[-*]\s/.test(currLine) ? currLine.replace(/^[-*]\s/, '') : `- ${currLine}`);
-          }
+      let newText;
+      if (currLineIndex === 0) {
+        let firstLine = lines[currLineIndex];
+        if (format === 'ol') { // numeric list
+          if (/^[-*]\s/.test(firstLine)) firstLine = firstLine.replace(/^[-*]\s/, '');
+          firstLine = (/^\d+\.\s/.test(firstLine) ? firstLine.replace(/^\d+\.\s/, '') : `1. ${firstLine}`);
+        } else { // bullet list
+          if (/^\d+\.\s/.test(firstLine)) firstLine = firstLine.replace(/^\d+\.\s/, '');
+          firstLine = (/^[-*]\s/.test(firstLine) ? firstLine.replace(/^[-*]\s/, '') : `- ${firstLine}`);
         }
-        return `${prev}\n${currLine}`;
-      });
+        newText = [firstLine, ...lines.slice(1)].reduce((prev, currLine, i) => `${prev}\n${currLine}`);
+      } else {
+        newText = lines.reduce((prev, currLine, i) => {
+          if (i === currLineIndex) {
+            if (format === 'ol') { // numeric list
+              if (/^[-*]\s/.test(currLine)) currLine = currLine.replace(/^[-*]\s/, '');
+              currLine = (/^\d+\.\s/.test(currLine) ? currLine.replace(/^\d+\.\s/, '') : `1. ${currLine}`);
+            } else { // bullet list
+              if (/^\d+\.\s/.test(currLine)) currLine = currLine.replace(/^\d+\.\s/, '');
+              currLine = (/^[-*]\s/.test(currLine) ? currLine.replace(/^[-*]\s/, '') : `- ${currLine}`);
+            }
+          }
+          return `${prev}\n${currLine}`;
+        });
+      } 
       setSource(newText);
       // Focus on the textarea and set the cursor position
       textarea.focus();
       setTimeout(() => textarea.setSelectionRange(start, end), 10);
+    // when it's other format
     } else {
       // insert easy format
       const selectedText = textarea.value.substring(start, end);
@@ -71,8 +80,9 @@ const MarkdownEditor: React.FC<Props> = ({ source, setSource }) => {
     }
   };
 
-  // generate list format when pressing enter
-  const handlePressEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  // textarea keydown handler
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // generate list format when pressing enter
     if (e.key === 'Enter') {
       const textarea = textareaRef.current as any as HTMLTextAreaElement;
       let lines = textarea.value.split('\n');
@@ -114,7 +124,7 @@ const MarkdownEditor: React.FC<Props> = ({ source, setSource }) => {
       {/* textarea / preview */}
       {mode === 'write' ?
         <div className="flex flex-col flex-1">
-          <textarea ref={textareaRef} className="resize-none border mt-2 w-full flex-1" placeholder="Add description... (At least 30 characters)" value={source} onKeyDown={(e) => setTimeout(() => handlePressEnter(e), 10)} onInput={(e: React.ChangeEvent<HTMLTextAreaElement>) => setSource(e.target.value)} />
+          <textarea ref={textareaRef} className="resize-none border mt-2 w-full flex-1" placeholder="Add description... (At least 30 characters)" value={source} onKeyDown={(e) => setTimeout(() => handleKeyDown(e), 10)} onInput={(e: React.ChangeEvent<HTMLTextAreaElement>) => setSource(e.target.value)} />
           <div className="text-xs text-gray-400 mt-1"><FontAwesomeIcon icon={faMarkdown} className="mr-1" />Markdown</div>
         </div>
         : <div className="mt-2 w-full flex-1 p-2"><UIWMarkdownEditor.Markdown source={source} /></div>}

@@ -30,3 +30,19 @@ export const fetchUserRepos = async (username: string) => {
     throw error;
   }
 };
+
+// create an issue on github
+export const postIssue = async (username: string, repo: string, title: string, body: string, labels: { name: string, color: string }[]) => {
+  try {
+    const response = await axios.post(`https://api.github.com/repos/${username}/${repo}/issues`, { title, body, labels }, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log(response)
+  } catch (error) {
+    console.error('Error creating issue:', error);
+    throw error;
+  }
+}

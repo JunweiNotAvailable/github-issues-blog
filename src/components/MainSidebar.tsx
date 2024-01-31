@@ -6,10 +6,10 @@ import Image from "next/image";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { labels } from "@/utils/constants";
 
 const MainSidebar = () => {
 
-  const labels = ['bug', 'documentation', 'duplicate', 'enhancement', 'good first issue', 'help wanted', 'invalid', 'question', 'wontfix'];
   const [isLabelsOpened, setIsLabelsOpened] = useState(true); // status of labels list - open/close
 
   return (
