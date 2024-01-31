@@ -26,7 +26,7 @@ const Navbar = () => {
   return (
     <>
 
-      <div className={`border-b border-slate-200 pl-5 py-3 pr-3 flex justify-between items-center w-full box-border`}>
+      <div className={`border-b border-slate-200 pl-5 py-3 pr-3 flex sticky top-0 z-50 bg-white justify-between items-center w-full box-border`}>
         
         {/* logo */}
         <Link className="flex items-center" href={'/'}>

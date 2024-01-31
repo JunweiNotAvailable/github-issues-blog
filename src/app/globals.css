@@ -9,6 +9,8 @@
   --color-primary-hover: #2b3137;
   --color-secondary: #e5e8eb;
   --color-secondary-hover: #f2f3f4;
+  --color-input-border: #dadbdc;
+  --color-primary-blue: #3391d4;
 }
 
 body {
@@ -43,7 +45,10 @@ nav a:hover {
 nav > * {
   cursor: pointer;
   margin-left: 12px;
-} 
+}
+button:hover {
+  background: var(--color-secondary-hover);
+}
 .primary-button {
   background: var(--color-primary);
   color: #fff;
@@ -128,4 +133,10 @@ menu > *:hover {
 }
 menu > * > :first-child {
   margin-right: 8px;
+}
+ul {
+  list-style-type: disc;
+}
+ol {
+  list-style-type: decimal;
 }

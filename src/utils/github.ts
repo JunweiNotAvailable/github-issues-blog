@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Github access token
-export const accessToken = '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';
+export const accessToken = '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';
 
 // get user id from the image url
 export const getUserId = (url: string) => {

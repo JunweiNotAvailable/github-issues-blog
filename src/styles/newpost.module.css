@@ -1,15 +1,41 @@
 .inputGroup {
   display: flex;
   flex-direction: column;
+  margin-top: 8px;
 }
-.inputGroup input {
-  border: 1px solid #dadbdc;
+.inputGroup input, .inputGroup textarea {
+  border: 1px solid var(--color-input-border);
   border-radius: .4rem;
   padding: .5rem;
   outline: 2px solid transparent;
   font-size: 14px;
   transition: outline .2s;
 }
-.inputGroup input:focus {
+.inputGroup input:focus, .inputGroup textarea:focus {
   outline-color: var(--color-secondary);
+}
+.inputGroup input::selection, .inputGroup textarea::selection {
+  color: #fff;
+  background: #88c4ed;
+}
+.dropdown::-webkit-scrollbar {
+  width: 8px;
+  background: none;
+}
+.dropdown::-webkit-scrollbar-thumb {
+  background: var(--color-secondary);
+}
+.mdEditorButton {
+  font-size: 13px;
+  border: 1px solid var(--color-input-border);
+  border-radius: .3rem;
+  padding: 4px 12px;
+}
+.actionBar > button {
+  margin: 0 4px;
+  width: 24px;
+  height: 24px;
+  font-size: 12px;
+  color: #888;
+  border-radius: .3rem;
 }
