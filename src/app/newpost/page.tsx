@@ -20,6 +20,7 @@ const NewPost = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
+  const [selectedLabels, setSelectedLabels] = useState([]);
 
   // register events
   useEffect(() => {
@@ -81,10 +82,15 @@ const NewPost = () => {
               <MarkdownEditor source={body} setSource={setBody} />
             </div>
             {/* submit button */}
-            <button className={styles.submitButton}>Post</button>
+            <div className="flex justify-end mt-3">
+              <button className={`${styles.submitButton} shadow rounded-md py-1.5 px-8 text-sm font-bold`}>Post</button>
+            </div>
           </div>
           {/* labels */}
           <div className="w-56 ml-4 box-border">
+            <div className="">
+              
+            </div>
             
           </div>
         </div>
