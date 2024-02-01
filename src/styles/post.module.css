@@ -1,3 +1,6 @@
+.markdownContent {
+  background: transparent !important;
+}
 .markdownContent span {
   font-family: Courier;
   font-weight: 600;

@@ -15,3 +15,6 @@ export const getTimeFromNow = (timestamp: string) => {
   if (months < 12) return `${months} months`; // < 365 days
   return `${Math.floor(months / 12)} years`;
 }
+
+// remove duplicated objects with same id
+export const removeDuplicate = (array: any[]) => Array.from(array.reduce((map, obj) => map.set(obj.id, obj), new Map()).values());

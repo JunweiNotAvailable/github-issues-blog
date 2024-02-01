@@ -23,17 +23,16 @@ const Navbar = () => {
 
   // register click event
   useEffect(() => {
+    // click event handler
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest('#user-button')) { // close menu if not clicking the user button
+        setIsMenuOpened(false);
+      }
+    }
     document.addEventListener('click', handleClick);
     return () => document.removeEventListener('click', handleClick);
   }, []);
-
-  // click event handler
-  const handleClick = (e: MouseEvent) => {
-    const target = e.target as HTMLElement;
-    if (!target.closest('#user-button')) { // close menu if not clicking the user button
-      setIsMenuOpened(false);
-    }
-  }
 
   return (
     <>

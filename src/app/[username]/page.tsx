@@ -1,6 +1,8 @@
 'use client'
 
 import Post from "@/components/PostItem";
+import Spinner from "@/components/Spinner";
+import { removeDuplicate } from "@/utils/functions";
 import { getUser, getUserFromUrl, getUserIssues, getUserRepos } from "@/utils/github";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -16,8 +18,10 @@ const Profile = () => {
   const [me, setMe] = useState<any | null>(null);
   // user's data
   const [user, setUser] = useState<any | null>(null);
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<any[]>([]);
   const [page, setPage] = useState(1);
+  const [isLastPage, setIsLastPage] = useState(false);
+  const [isLoadingData, setIsLoadingData] = useState(false); // prevent repeated loading
 
   // fetch user data 
   useEffect(() => {
@@ -31,7 +35,7 @@ const Profile = () => {
     })();
   }, []);
 
-  // fetch authenticated user data
+  // get authenticated user data
   useEffect(() => {
     if (status === 'authenticated') {
       (async () => {
@@ -42,12 +46,38 @@ const Profile = () => {
     }
   }, [status]);
 
+  useEffect(() => {
+    document.addEventListener('scroll', handleScroll);
+    return () => document.removeEventListener('scroll', handleScroll);
+  }, [page, isLastPage, isLoadingData]);
+
+  // handle scroll
+  const handleScroll = async () => {
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement || document.body;
+    // load more data if scroll to bottom
+    if (Math.abs(scrollHeight - (scrollTop + clientHeight)) < 10) {
+      // only load if there are more data
+      if (!isLastPage && !isLoadingData) {
+        setIsLoadingData(true);
+        const issues = await getUserIssues(username as string, page + 1);
+        setPage(page + 1);
+        if (issues.length === 0) { // no more data
+          setIsLastPage(true);
+          return;
+        }
+        setPosts(prev => removeDuplicate([...prev, ...issues]).sort((a: any, b: any) => a.updated_at < b.updated_at ? 1 : -1));
+        setIsLoadingData(false);
+      }
+    }
+  }
+
   return (
     user &&
     <div className="flex justify-center">
       <div className="flex w-full py-12 px-4" style={{ maxWidth: 1024 }}>
         {/* user info */}
         <div className="w-72 pl-4 pr-8 py-2">
+          <div className="sticky top-20">Search</div>
           <div>
             <div className="rounded-full overflow-hidden w-full aspect-square">
               <Image className="rounded-full w-full h-full border border-slate-300" priority alt="" src={user.avatar_url} width={512} height={512} />
@@ -70,6 +100,7 @@ const Profile = () => {
             post={post}
             isMyPost={me?.login.toLowerCase() === username.toString().toLowerCase()}
           />)}
+          {isLoadingData && <div className="flex justify-center my-5"><Spinner /></div>}
         </div>
       </div>
     </div>

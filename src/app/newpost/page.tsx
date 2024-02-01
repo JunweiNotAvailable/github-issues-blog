@@ -31,6 +31,13 @@ const NewPost = () => {
 
   // register events
   useEffect(() => {
+    // click handler
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest('.dropdown') && target.id !== 'repo-input') { // close dropdown when not clicking the dropdown and repo input
+        setIsDropdownOpened(false);
+      }
+    }  
     document.addEventListener('click', handleClick);
     return () => document.removeEventListener('click', handleClick);
   }, []);
@@ -57,14 +64,6 @@ const NewPost = () => {
       body.length > 30
     );
   }, [repoInput, title, body]);
-
-  // click handler
-  const handleClick = (e: MouseEvent) => {
-    const target = e.target as HTMLElement;
-    if (!target.closest('.dropdown') && target.id !== 'repo-input') { // close dropdown when not clicking the dropdown and repo input
-      setIsDropdownOpened(false);
-    }
-  }  
 
   // submit post -> create issue
   const submitPost = async () => {

@@ -19,7 +19,7 @@ const PostItem: React.FC<Props> = ({ post, user, isMyPost }) => {
   const router = useRouter();
 
   return (
-    <div className="mt-2 p-4 border border-slate-200 rounded-lg shadow-sm">
+    <div className="mt-4 p-4 border border-slate-200 rounded-lg shadow-sm bg-gray-50">
       {/* picture, name and time */}
       <div className="flex justify-between items-start">
         <div className="flex items-center">
@@ -52,7 +52,7 @@ const PostItem: React.FC<Props> = ({ post, user, isMyPost }) => {
         </div>
       </div>
       {/* comments */}
-      <button className="mt-3 text-slate-400 py-1 px-3 text-xs font-bold rounded-full" onClick={() => router.push(`/${user.login}/${post.id}`)}><FontAwesomeIcon className="mr-2" icon={faComment} />{post.comments} Comment{post.comments === 1 ? '' : 's'}</button>
+      <button className="mt-3 text-slate-400 py-1 px-3 text-xs font-bold rounded-full hover:bg-slate-200" onClick={() => router.push(`/${user.login}/${post.id}`)}><FontAwesomeIcon className="mr-2" icon={faComment} />{post.comments} Comment{post.comments === 1 ? '' : 's'}</button>
     </div>
   );
 }
