@@ -1,6 +1,6 @@
 "use client"
 
-import { fetchUserRepos, getUsername, postIssue } from "@/utils/github";
+import { getUserRepos, postIssue, getUserFromUrl } from "@/utils/github";
 import styles from '../../styles/newpost.module.css';
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -39,8 +39,8 @@ const NewPost = () => {
   useEffect(() => {
     (async () => {
       if (status === 'authenticated') { // fetch data if user is logged in
-        const name = await getUsername(session.user?.image as string);
-        const data = await fetchUserRepos(name);
+        const name = (await getUserFromUrl(session.user?.image as string)).login;
+        const data = await getUserRepos(name);
         setUsername(name);
         setRepos(data);
       } else if (status === 'unauthenticated') { // redirect to login page if no user logged in
@@ -72,8 +72,8 @@ const NewPost = () => {
   }
 
   return (
-    <div className="flex justify-center h-full">
-      <div className="w-full py-4 flex flex-col" style={{ maxWidth: 1024 }}>
+    <div className="flex justify-center">
+      <div className="w-full py-8 flex flex-col" style={{ maxWidth: 1024 }}>
         
         <h1 className="text-xl border-b p-2 font-bold">New post</h1>
 

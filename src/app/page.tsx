@@ -17,10 +17,10 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex py-2 h-full box-border">
+    <div className='flex'>
       <MainSidebar />
-      <main>
-        
+      <main className="flex-1">
+        <div  style={{ height: 2000 }}/>
       </main>
     </div>
   )

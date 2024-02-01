@@ -13,7 +13,7 @@ const MainSidebar = () => {
   const [isLabelsOpened, setIsLabelsOpened] = useState(true); // status of labels list - open/close
 
   return (
-    <aside className="border-slate-200 px-1 flex flex-col box-border overflow-auto">
+    <aside className="border-slate-200 px-1 flex flex-col box-border overflow-auto sticky top-14">
       <div className="flex-1 flex flex-col">
         {/* home */}
         <Link href={'/'} className="sidebar-button"><Image src={'/icon-home.svg'} alt="" height={16} width={16}/><span>Home</span></Link>

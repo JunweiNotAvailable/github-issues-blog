@@ -1,0 +1,16 @@
+.markdownContent span {
+  font-family: Courier;
+  font-weight: 600;
+}
+.markdownContent p, .markdownContent li {
+  font-size: 14px !important;
+}
+.markdownContent h1 {
+  font-size: 22px !important;
+}
+.markdownContent h2 {
+  font-size: 18px !important;
+}
+.markdownContent h3 {
+  font-size: 16px !important;
+}

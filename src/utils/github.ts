@@ -8,15 +8,21 @@ export const getUserId = (url: string) => {
   return (url.match(/u\/(.*?)\?v/) || [])[1];
 }
 
-// get user data and return the username from the image url
-export const getUsername = async (url: string) => {
+// return user data from given username
+export const getUser = async (username: string) => {
+  const user = await axios.get(`https://api.github.com/users/${username}`);
+  return user.data;
+}
+
+// return user data from the image url
+export const getUserFromUrl = async (url: string) => {
   const userId = getUserId(url);
   const user = await axios.get(`https://api.github.com/user/${userId}`);
-  return user.data.login;
+  return user.data;
 }
 
 // get user's repos
-export const fetchUserRepos = async (username: string) => {
+export const getUserRepos = async (username: string) => {
   try {
     const response = await axios.get(`https://api.github.com/users/${username}/repos`, {
       headers: {
@@ -49,5 +55,11 @@ export const postIssue = async (username: string, repo: string, title: string, b
 // get issues (any)
 export const getIssues = async (page: number) => {
   const data = (await axios.get(`https://api.github.com/search/issues?q=is:open&sort=updated&order=desc&per_page=10&page=${page}`)).data;
+  return data.items;
+}
+
+// get issues of given user
+export const getUserIssues = async (username: string, page: number) => {
+  const data = (await axios.get(`https://api.github.com/search/issues?q=author:${username}+is:open&sort=updated&order=desc&per_page=10&page=${page}`)).data;
   return data.items;
 }
