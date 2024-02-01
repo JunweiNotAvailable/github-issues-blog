@@ -30,7 +30,8 @@ const Navbar = () => {
         
         {/* logo */}
         <Link className="flex items-center" href={'/'}>
-          <div className="font-logo text-lg ml">DanielIssues</div>
+          <Image src={'/logo.png'} alt="" height={24} width={24} />
+          <div className="font-logo text-lg ml-2">DanielIssues</div>
         </Link>
         
         {/* nav menu / login button */}

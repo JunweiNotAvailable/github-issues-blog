@@ -112,7 +112,7 @@ const NewPost = () => {
           </div>
 
           {/* labels */}
-          <div className="w-64 ml-4 box-border">
+          <div className="w-64 ml-8 box-border">
             {/* selected */}
             <div className="flex flex-wrap">
               {selectedLabels.map((label, i) => <div className="flex rounded-full items-center m-1 text-xs cursor-default border py-1 px-2" key={`selected-${i}`} 

@@ -45,3 +45,9 @@ export const postIssue = async (username: string, repo: string, title: string, b
     throw error;
   }
 }
+
+// get issues (any)
+export const getIssues = async (page: number) => {
+  const data = (await axios.get(`https://api.github.com/search/issues?q=is:open&sort=updated&order=desc&per_page=10&page=${page}`)).data;
+  return data.items;
+}
