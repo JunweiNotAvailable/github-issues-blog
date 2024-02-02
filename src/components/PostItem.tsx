@@ -9,6 +9,7 @@ import { faComment } from "@fortawesome/free-regular-svg-icons";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import CommentItem from "./CommentItem";
+import { getUser } from "@/utils/github";
 
 interface Props {
   post: any
@@ -22,9 +23,14 @@ const PostItem: React.FC<Props> = ({ post, owner, isMyPost, showComments }) => {
   const router = useRouter();
   const [comments, setComments] = useState<any[]>([]);
 
-  // get comments
+  // get comments and owner
   useEffect(() => {
     (async () => {
+      // get owner if owner is string
+      if (typeof owner === 'string') {
+        owner = await getUser(owner);
+      }
+
       const commentsData = (await axios.get(`${post.comments_url}`)).data;
       setComments(commentsData.sort((a: any, b: any) => a.updated_at < b.updated_at ? 1 : -1));
     })();
@@ -34,6 +40,7 @@ const PostItem: React.FC<Props> = ({ post, owner, isMyPost, showComments }) => {
   const getRoute = () => `/${post.repository_url.match(/\/repos\/([^\/]+)\/([^\/]+)/)[1]}/${post.repository_url.match(/\/repos\/([^\/]+)\/([^\/]+)/)[2]}/${post.number}`;
 
   return (
+    typeof owner !== 'string' &&
     <div className="mt-4 py-4 border border-slate-200 rounded-lg shadow-sm bg-gray-50">
       {/* picture, name and time */}
       <div className={`flex justify-between items-start px-4`}>

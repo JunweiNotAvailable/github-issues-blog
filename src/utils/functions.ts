@@ -18,3 +18,8 @@ export const getTimeFromNow = (timestamp: string) => {
 
 // remove duplicated objects with same id
 export const removeDuplicate = (array: any[]) => Array.from(array.reduce((map, obj) => map.set(obj.id, obj), new Map()).values());
+
+// get random items in an array
+export const getRandomItems = (array: any[], count: number) => {
+  return array.slice().sort(() => Math.random() - 0.5).slice(0, count);
+}

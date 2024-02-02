@@ -29,9 +29,6 @@ const Profile = () => {
       // get user data
       const userData = await getUser(username as string);
       setUser(userData);
-      // get posts
-      const issues = await getUserIssues(username as string, page);
-      setPosts(issues);
     })();
   }, []);
 
@@ -46,11 +43,25 @@ const Profile = () => {
     }
   }, [status]);
 
+  // load data when page updated
+  useEffect(() => {
+    (async () => {
+      setIsLoadingData(true);
+      const issues = await getUserIssues(username as string, page);
+      if (issues.length === 0) { // no more data
+        setIsLastPage(true);
+        return;
+      }
+      setPosts(prev => removeDuplicate([...prev, ...issues]).sort((a: any, b: any) => a.updated_at < b.updated_at ? 1 : -1));
+      setIsLoadingData(false);
+    })();
+  }, [page]);
+
   // register scroll event
   useEffect(() => {
     document.addEventListener('scroll', handleScroll);
     return () => document.removeEventListener('scroll', handleScroll);
-  }, [page, isLastPage, isLoadingData]);
+  }, [isLastPage, isLoadingData]);
 
   // handle scroll
   const handleScroll = async () => {
@@ -59,15 +70,7 @@ const Profile = () => {
     if (Math.abs(scrollHeight - (scrollTop + clientHeight)) < 10) {
       // only load if there are more data
       if (!isLastPage && !isLoadingData) {
-        setIsLoadingData(true);
-        const issues = await getUserIssues(username as string, page + 1);
         setPage(page + 1);
-        if (issues.length === 0) { // no more data
-          setIsLastPage(true);
-          return;
-        }
-        setPosts(prev => removeDuplicate([...prev, ...issues]).sort((a: any, b: any) => a.updated_at < b.updated_at ? 1 : -1));
-        setIsLoadingData(false);
       }
     }
   }
