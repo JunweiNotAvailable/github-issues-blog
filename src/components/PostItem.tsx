@@ -38,7 +38,7 @@ const PostItem: React.FC<Props> = ({ post, owner, isMyPost, showComments, hasUse
   const getRoute = () => `/${post.repository_url.match(/\/repos\/([^\/]+)\/([^\/]+)/)[1]}/${post.repository_url.match(/\/repos\/([^\/]+)\/([^\/]+)/)[2]}/${post.number}`;
 
   return (
-    <div className="mt-4 py-4 border border-slate-200 rounded-lg shadow-sm bg-gray-50">
+    <div className="mb-4 py-4 border border-slate-200 rounded-lg shadow-sm bg-gray-50">
       {/* picture, name and time */}
       <div className={`flex justify-between items-start px-4`}>
         <div className="flex items-center">

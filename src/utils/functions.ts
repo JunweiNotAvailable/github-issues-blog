@@ -23,3 +23,12 @@ export const removeDuplicate = (array: any[]) => Array.from(array.reduce((map, o
 export const getRandomItems = (array: any[], count: number) => {
   return array.slice().sort(() => Math.random() - 0.5).slice(0, count);
 }
+
+// format the number
+export const formatNumber = (value: number) => {
+  const suffixes = ['', 'k', 'm', 'b'];
+  const order = Math.floor(Math.log10(Math.abs(value)) / 3);
+  const suffix = suffixes[Math.min(order, suffixes.length - 1)];
+  const formattedValue = value / Math.pow(10, order * 3);
+  return `${Number.isInteger(formattedValue) ? formattedValue.toFixed(0) : formattedValue.toFixed(1)}${suffix}`;
+}

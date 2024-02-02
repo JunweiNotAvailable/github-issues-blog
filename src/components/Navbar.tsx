@@ -48,13 +48,13 @@ const Navbar = () => {
         
         {/* nav menu / login button */}
         {status !== 'loading' && <div className="flex items-center">
-          {session ?
+          {username ?
             <nav>
               {/* new post button */}
               <Link className="w-7 h-7 rounded p-0 flex justify-center items-center" href={'/newpost'}><Image src={'/icon-plus.svg'} height={16} width={16} alt="" /></Link>
               {/* user button */}
               <div id="user-button" className="relative rounded-full overflow-hidden w-7 h-7 border" onClick={() => setIsMenuOpened(!isMenuOpened)}>
-                <Image src={session.user?.image || ''} alt="" height={28} width={28} />
+                <Image src={session?.user?.image || ''} alt="" height={28} width={28} />
               </div>
             </nav>
             :

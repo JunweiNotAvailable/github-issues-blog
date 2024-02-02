@@ -66,6 +66,7 @@ footer {
 menu {
   animation: fade-in-down .1s ease-out;
   width: 224px;
+  z-index: 1000;
 }
 @keyframes fade-in-down {
   0% {

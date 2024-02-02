@@ -57,18 +57,33 @@ export const postIssue = async (username: string, repo: string, title: string, b
 export const getIssues = async (page: number) => {
   const minDate = new Date();
   minDate.setHours(minDate.getHours() - page);
-  const data = (await axios.get(`https://api.github.com/search/issues?q=created:>${minDate.toISOString()}&sort=random&order=desc&per_page=10`)).data;
+  const data = (await axios.get(`https://api.github.com/search/issues?q=created:>${minDate.toISOString()}&sort=random&order=desc&per_page=10`, { 
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    }
+  })).data;
   return data.items;
 }
 
 // get issues of given user
 export const getUserIssues = async (username: string, page: number) => {
-  const data = (await axios.get(`https://api.github.com/search/issues?q=author:${username}+is:open&sort=updated&order=desc&per_page=10&page=${page}`)).data;
+  const data = (await axios.get(`https://api.github.com/search/issues?q=author:${username}+is:open&sort=updated&order=desc&per_page=10&page=${page}`, { 
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    }
+  })).data;
   return data.items;
 }
 
 // get single issue by id
 export const getIssue = async (username: string, repo: string, issue: string) => {
-  const data = (await axios.get(`https://api.github.com/repos/${username}/${repo}/issues/${issue}`)).data;
+  const data = (await axios.get(`https://api.github.com/repos/${username}/${repo}/issues/${issue}`, { 
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    }
+  })).data;
   return data;
 }

@@ -128,7 +128,7 @@ const NewPost = () => {
             {/* all */}
             <div className="text-sm font-bold mt-2">Labels</div>
             <div className="flex flex-col mt-1 border rounded-md shadow-sm overflow-hidden">
-              {labels.map((label, i) => <button className={`${selectedLabels.find(l => l.name === label) ? styles.selected : ''} flex justify-between items-center py-2 px-3 text-left text-sm`} key={`label-${i}`} onClick={() => setSelectedLabels(prev => prev.find(l => l.name === label) ? prev.filter(l => l.name !== label) : [...prev, { name: label, color: labelColors[i] }])}>
+              {labels.slice(0, 9).map((label, i) => <button className={`${selectedLabels.find(l => l.name === label) ? styles.selected : ''} flex justify-between items-center py-2 px-3 text-left text-sm`} key={`label-${i}`} onClick={() => setSelectedLabels(prev => prev.find(l => l.name === label) ? prev.filter(l => l.name !== label) : [...prev, { name: label, color: labelColors[i] }])}>
                 <div className="flex items-center">
                   <div className='rounded-full w-3 h-3 border border-slate-300 mr-2' style={{ background: labelColors[i] }} />
                   {label}

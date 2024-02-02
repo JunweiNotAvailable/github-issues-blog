@@ -44,7 +44,7 @@ const Post = () => {
     <div className="flex justify-center pb-16">
       <div className="w-full" style={{ maxWidth: 720 }}>
         {/* header */}
-        <div className="font-bold text-xl bg-white mt-4 mx-1">Post</div>
+        <div className="font-bold text-xl bg-white my-4 mx-1">Post</div>
         {/* post */}
         <PostItem
           post={post}
