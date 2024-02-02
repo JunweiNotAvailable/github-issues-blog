@@ -55,9 +55,10 @@ export const postIssue = async (username: string, repo: string, title: string, b
 
 // get issues (any)
 export const getIssues = async (page: number) => {
-  // to prevent same data when refresh -> get 100 issues and return 10 randomly
-  const data = (await axios.get(`https://api.github.com/search/issues?q=is:open&sort=updated&order=desc&per_page=100&page=${page}`)).data;
-  return getRandomItems(data.items, 10);
+  const minDate = new Date();
+  minDate.setHours(minDate.getHours() - page);
+  const data = (await axios.get(`https://api.github.com/search/issues?q=created:>${minDate.toISOString()}&sort=random&order=desc&per_page=10`)).data;
+  return data.items;
 }
 
 // get issues of given user

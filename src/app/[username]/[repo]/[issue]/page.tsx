@@ -51,6 +51,7 @@ const Post = () => {
           owner={owner}
           isMyPost={owner.login === authUser?.login}
           showComments
+          hasUserLink
         />
       </div>
     </div>

@@ -24,8 +24,7 @@ export default function Home() {
         setIsLastPage(true);
         return;
       }
-      setPosts(prev => removeDuplicate([...prev, ...issues]).sort((a: any, b: any) => a.updated_at < b.updated_at ? 1 : -1));
-      console.log(issues);
+      setPosts(prev => removeDuplicate([...prev, ...issues]));
       setIsLoadingData(false);
     })();
   }, [page]);
@@ -54,11 +53,13 @@ export default function Home() {
         {/* posts */}
         <div className="flex-1 min-w-0">
           {posts.map((post, i) => <PostItem 
-              key={`post-${i}`}
-              owner={post.user.login}
-              post={post}
-              isMyPost={false}
-            />)}
+            key={`post-${i}`}
+            owner={post.user}
+            hasPostLink
+            hasUserLink
+            post={post}
+            isMyPost={false}
+          />)}
           {isLoadingData && <div className="flex justify-center my-5"><Spinner /></div>}
         </div>
         {/* sidebar */}

@@ -9,16 +9,17 @@ import { faComment } from "@fortawesome/free-regular-svg-icons";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import CommentItem from "./CommentItem";
-import { getUser } from "@/utils/github";
 
 interface Props {
   post: any
   owner: any
   isMyPost: boolean
   showComments?: boolean
+  hasUserLink?: boolean
+  hasPostLink?: boolean
 }
 
-const PostItem: React.FC<Props> = ({ post, owner, isMyPost, showComments }) => {
+const PostItem: React.FC<Props> = ({ post, owner, isMyPost, showComments, hasUserLink, hasPostLink }) => {
 
   const router = useRouter();
   const [comments, setComments] = useState<any[]>([]);
@@ -26,13 +27,10 @@ const PostItem: React.FC<Props> = ({ post, owner, isMyPost, showComments }) => {
   // get comments and owner
   useEffect(() => {
     (async () => {
-      // get owner if owner is string
-      if (typeof owner === 'string') {
-        owner = await getUser(owner);
+      if (showComments) {
+        const commentsData = (await axios.get(`${post.comments_url}`)).data;
+        setComments(commentsData.sort((a: any, b: any) => a.updated_at < b.updated_at ? 1 : -1));
       }
-
-      const commentsData = (await axios.get(`${post.comments_url}`)).data;
-      setComments(commentsData.sort((a: any, b: any) => a.updated_at < b.updated_at ? 1 : -1));
     })();
   }, []);
 
@@ -40,17 +38,16 @@ const PostItem: React.FC<Props> = ({ post, owner, isMyPost, showComments }) => {
   const getRoute = () => `/${post.repository_url.match(/\/repos\/([^\/]+)\/([^\/]+)/)[1]}/${post.repository_url.match(/\/repos\/([^\/]+)\/([^\/]+)/)[2]}/${post.number}`;
 
   return (
-    typeof owner !== 'string' &&
     <div className="mt-4 py-4 border border-slate-200 rounded-lg shadow-sm bg-gray-50">
       {/* picture, name and time */}
       <div className={`flex justify-between items-start px-4`}>
         <div className="flex items-center">
-          <div className={`w-10 h-10 overflow-hidden rounded-full border${showComments ? ' cursor-pointer' : ''}`} onClick={() => showComments && router.push(`/${owner.login}`)}>
+          <div className={`w-10 h-10 overflow-hidden rounded-full border${hasUserLink ? ' cursor-pointer' : ''}`} onClick={() => hasUserLink && router.push(`/${owner.login}`)}>
             <Image className="w-full h-full overflow-hidden rounded-full" alt="" src={owner.avatar_url} width={512} height={512} />
           </div>
           <div className="ml-2">
             <div className="flex items-center">
-              <div className={showComments ? "text-sm hover:underline cursor-pointer font-bold" : "text-sm font-bold"} onClick={() => showComments && router.push(`/${owner.login}`)}>{owner.name}</div>
+              <div className={hasUserLink ? "text-sm hover:underline cursor-pointer font-bold" : "text-sm font-bold"} onClick={() => hasUserLink && router.push(`/${owner.login}`)}>{owner.login}</div>
               <div className="text-xs text-slate-400 ml-2">{getTimeFromNow(post.updated_at)}</div>
             </div>
             <div className="text-xs text-slate-400">{post.repository_url.replace('https://api.github.com/repos/', '')}</div>
@@ -61,7 +58,7 @@ const PostItem: React.FC<Props> = ({ post, owner, isMyPost, showComments }) => {
       {/* title, body & labels */}
       <div className="mt-1 px-4">
         {/* title */}
-        <div className={showComments ? "font-semibold" : "font-semibold hover:underline cursor-pointer w-fit"} onClick={() => showComments ? window.scrollTo({ top: 0, behavior: 'smooth' }) : router.push(getRoute())}>{post.title}</div>
+        <div className={!hasPostLink ? "font-semibold" : "font-semibold hover:underline cursor-pointer w-fit"} onClick={() => hasPostLink && router.push(getRoute())}>{post.title}</div>
         {/* body */}
         <div className="mt-2">
           <MarkdownEditor.Markdown className={styles.markdownContent} source={post.body} />
@@ -70,7 +67,7 @@ const PostItem: React.FC<Props> = ({ post, owner, isMyPost, showComments }) => {
         <div className="flex flex-wrap mt-3">
           {post.labels.map((label: any, i: number) =>
             <button
-              className="text-xs mr-2 px-3 py-1 rounded-full border"
+              className="text-xs mr-2 my-1 px-3 py-1 rounded-full border"
               key={`${post.id}-label${i}`}
               style={{ borderColor: `#${label.color}`, background: `#${label.color}88`, color: isDark(`#${label.color}`) ? '#fff' : '#000' }}
             >{label.name}</button>)}

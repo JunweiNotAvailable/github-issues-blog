@@ -102,6 +102,7 @@ const Profile = () => {
             key={`post-${i}`}
             owner={user}
             post={post}
+            hasPostLink
             isMyPost={authUser?.login.toLowerCase() === username.toString().toLowerCase()}
           />)}
           {isLoadingData && <div className="flex justify-center my-5"><Spinner /></div>}
