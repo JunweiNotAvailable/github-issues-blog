@@ -14,14 +14,14 @@ const Profile = () => {
   const { data: session, status } = useSession();
   const params = useParams();
   const { username } = params;
-  // my data
-  const [me, setMe] = useState<any | null>(null);
-  // user's data
+  // auth user
+  const [authUser, setAuthUser] = useState<any | null>(null);
+  // post user's data
   const [user, setUser] = useState<any | null>(null);
   const [posts, setPosts] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
-  const [isLoadingData, setIsLoadingData] = useState(false); // prevent repeated loading
+  const [isLoadingData, setIsLoadingData] = useState(false);
 
   // fetch user data 
   useEffect(() => {
@@ -35,17 +35,18 @@ const Profile = () => {
     })();
   }, []);
 
-  // get authenticated user data
+  // get auth user data
   useEffect(() => {
     if (status === 'authenticated') {
       (async () => {
         const name = (await getUserFromUrl(session.user?.image as string)).login;
         const userData = await getUser(name);
-        setMe(userData);
+        setAuthUser(userData);
       })();
     }
   }, [status]);
 
+  // register scroll event
   useEffect(() => {
     document.addEventListener('scroll', handleScroll);
     return () => document.removeEventListener('scroll', handleScroll);
@@ -96,9 +97,9 @@ const Profile = () => {
           <div className="font-bold text-lg mb-2">Posts</div>
           {posts.map((post, i) => <Post 
             key={`post-${i}`}
-            user={user}
+            owner={user}
             post={post}
-            isMyPost={me?.login.toLowerCase() === username.toString().toLowerCase()}
+            isMyPost={authUser?.login.toLowerCase() === username.toString().toLowerCase()}
           />)}
           {isLoadingData && <div className="flex justify-center my-5"><Spinner /></div>}
         </div>

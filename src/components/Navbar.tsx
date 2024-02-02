@@ -14,11 +14,12 @@ const Navbar = () => {
 
   // fetch user data 
   useEffect(() => {
-    (async () => {
-      if (status === 'authenticated') {
+    console.log(status)
+    if (status === 'authenticated') {
+      (async () => {
         setUsername((await getUserFromUrl(session.user?.image as string)).login);
-      }
-    })();
+      })();
+    }
   }, [status]);
 
   // register click event

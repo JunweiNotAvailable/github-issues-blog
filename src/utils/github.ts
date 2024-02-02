@@ -63,3 +63,9 @@ export const getUserIssues = async (username: string, page: number) => {
   const data = (await axios.get(`https://api.github.com/search/issues?q=author:${username}+is:open&sort=updated&order=desc&per_page=10&page=${page}`)).data;
   return data.items;
 }
+
+// get single issue by id
+export const getIssue = async (username: string, repo: string, issue: string) => {
+  const data = (await axios.get(`https://api.github.com/repos/${username}/${repo}/issues/${issue}`)).data;
+  return data;
+}
