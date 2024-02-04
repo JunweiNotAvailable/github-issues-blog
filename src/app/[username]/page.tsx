@@ -50,6 +50,7 @@ const Profile = () => {
       const issues = await getUserIssues(username as string, page);
       if (issues.length === 0) { // no more data
         setIsLastPage(true);
+        setIsLoadingData(false);
         return;
       }
       setPosts(prev => removeDuplicate([...prev, ...issues]).sort((a: any, b: any) => a.updated_at < b.updated_at ? 1 : -1));
