@@ -17,3 +17,28 @@
 .markdownContent h3 {
   font-size: 16px !important;
 }
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+}
+.inputGroup input, .inputGroup textarea {
+  border: 1px solid var(--color-input-border);
+  border-radius: .4rem;
+  padding: .5rem;
+  outline: 2px solid transparent;
+  font-size: 14px;
+  transition: outline .2s;
+}
+.input {
+  outline: 2px solid transparent;
+  transition: outline .2s;
+}
+.inputGroup input:focus, .inputGroup textarea:focus, .input:focus {
+  outline-color: var(--color-secondary);
+}
+.inputGroup input::selection, .inputGroup textarea::selection {
+  color: #fff;
+  background: #88c4ed;
+}

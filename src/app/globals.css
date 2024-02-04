@@ -96,3 +96,11 @@ ul {
 ol {
   list-style-type: decimal;
 }
+.save-button {
+  color: #fff;
+  color: #fff;
+  background: var(--color-primary-blue);
+}
+.save-button:hover {
+  background: var(--color-primary-blue-hover);
+}

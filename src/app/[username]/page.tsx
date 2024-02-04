@@ -81,7 +81,7 @@ const Profile = () => {
       <div className="flex w-full py-12 px-4" style={{ maxWidth: 1024 }}>
         {/* user info */}
         <div className="w-72 pl-4 pr-8 py-2">
-          <div className="sticky top-20">Search</div>
+          {/* <div className="sticky top-20">Search</div> */}
           <div>
             <div className="rounded-full overflow-hidden w-full aspect-square">
               <Image className="rounded-full w-full h-full border border-slate-300" priority alt="" src={user.avatar_url} width={512} height={512} />

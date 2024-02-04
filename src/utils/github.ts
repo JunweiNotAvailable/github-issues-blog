@@ -53,11 +53,27 @@ export const postIssue = async (username: string, repo: string, title: string, b
   }
 }
 
+// update an issue on github
+export const updateIssue = async (username: string, repo: string, issueId: string, data: any) => {
+  try {
+    await axios.patch(`https://api.github.com/repos/${username}/${repo}/issues/${issueId}`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+  } catch (error) {
+    console.error('Error updating the issue:', error);
+  }
+}
+
 // get issues (any)
 export const getIssues = async (page: number) => {
   const minDate = new Date();
   minDate.setHours(minDate.getHours() - page);
-  const data = (await axios.get(`https://api.github.com/search/issues?q=created:>${minDate.toISOString()}&sort=random&order=desc&per_page=10`, { 
+  const data = (await axios.get(`https://api.github.com/search/issues?q=is:open+created:>${minDate.toISOString()}&sort=random&order=desc&per_page=10`, { 
     headers: {
       'Authorization': `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
