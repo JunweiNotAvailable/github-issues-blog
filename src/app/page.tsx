@@ -1,7 +1,7 @@
 "use client"
 
 import { formatNumber, removeDuplicate } from "@/utils/functions";
-import { getIssues, getUserIssues } from "@/utils/github";
+import { accessToken, getIssues, getUserIssues } from "@/utils/github";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Spinner from "@/components/Spinner";
@@ -16,14 +16,14 @@ export default function Home() {
   const [page, setPage] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
   const [isLoadingData, setIsLoadingData] = useState(false); // prevent repeated loading
-  const [labelCounts, setLabelCounts] = useState<number[]>([412, 123412, 574, 34676436, 43654, 4, 67463455, 6534, 8574773]);
+  const [labelCounts, setLabelCounts] = useState<number[]>([]);
 
   // get number of posts based on label
   useEffect(() => {
     (async () => {
       const counts = [];
       for (let i = 0; i < 9; i++) {
-        const count = (await axios.get(`https://api.github.com/search/issues?q=label:${labels[i]}&per_page=1`)).data.total_count;
+        const count = (await axios.get(`https://api.github.com/search/issues?q=label:${labels[i]}&per_page=1`, { headers: { Authorization: `Bearer ${accessToken}` } })).data.total_count;
         counts.push(count);
       }
       setLabelCounts(counts);
@@ -81,7 +81,7 @@ export default function Home() {
         <div className="w-64 h-fit mx-2 ml-4 rounded-lg shadow-sm bg-slate-100 py-1 sticky top-16 border">
           <div className="text-xs font-bold mx-3">Popular labels</div>
           <div className="flex flex-col mt-1">
-            {labels.slice(0, 9).map((label, i) => <button className="hover:bg-slate-200 text-left py-2 px-3 text-sm" key={`label-${i}`}>{label}<span className="text-xs text-gray-400 ml-2">{formatNumber(labelCounts[i])} posts</span></button>)}
+            {labels.slice(0, 9).map((label, i) => <button className="hover:bg-slate-200 text-left py-2 px-3 text-sm" key={`label-${i}`}>{label}<span className="text-xs text-gray-400 ml-2">{labelCounts[i] ? `${formatNumber(labelCounts[i])} posts` : ''}</span></button>)}
           </div>
         </div>
       </div>

@@ -99,6 +99,7 @@ const Profile = () => {
         {/* posts */}
         <div className="flex-1 ml-10 min-w-0">
           <div className="font-bold text-lg mb-2">Posts</div>
+          {posts.length === 0 && <div className="text-center my-4 text-gray-400">You have no posts</div>}
           {posts.map((post, i) => <Post 
             key={`post-${i}`}
             owner={user}

@@ -69,6 +69,22 @@ export const updateIssue = async (username: string, repo: string, issueId: strin
   }
 }
 
+// delete a post -> close an issue on github
+export const closeIssue = async (username: string, repo: string, issueId: string) => {
+  try {
+    await axios.patch(`https://api.github.com/repos/${username}/${repo}/issues/${issueId}`,
+      { state: 'closed' },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+  } catch (error) {
+    console.error('Error updating the issue:', error);
+  }
+}
+
 // get issues (any)
 export const getIssues = async (page: number) => {
   const minDate = new Date();
