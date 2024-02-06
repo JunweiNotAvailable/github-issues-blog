@@ -186,6 +186,7 @@ const PostItem: React.FC<Props> = ({ post, owner, isMyPost, showComments, hasUse
           {!isEditting && <div className="flex flex-wrap mt-3">
             {selectedLabels.map((label: any, i: number) =>
               <button
+                onClick={() => router.push(`/label/${label.name}`)}
                 className="text-xs mr-2 my-1 px-3 py-1 rounded-full border"
                 key={`${post.id}-label${i}`}
                 style={{ borderColor: `#${label.color}`, background: `#${label.color}88`, color: isDark(`#${label.color}`) ? '#fff' : '#000' }}

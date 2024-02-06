@@ -6,11 +6,12 @@ import { removeDuplicate } from "@/utils/functions";
 import { getUser, getUserFromUrl, getUserIssues, getUserRepos } from "@/utils/github";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const Profile = () => {
 
+  const router = useRouter();
   const { data: session, status } = useSession();
   const params = useParams();
   const { username } = params;
@@ -77,7 +78,7 @@ const Profile = () => {
   }
 
   return (
-    user &&
+    user ?
     <div className="flex justify-center">
       <div className="flex w-full py-12 px-4" style={{ maxWidth: 1024 }}>
         {/* user info */}
@@ -99,7 +100,7 @@ const Profile = () => {
         {/* posts */}
         <div className="flex-1 ml-10 min-w-0">
           <div className="font-bold text-lg mb-2">Posts</div>
-          {posts.length === 0 && <div className="text-center my-4 text-gray-400">You have no posts</div>}
+          {posts.length === 0 && <div className="text-center text-gray-300 text-lg font-bold">You have no posts</div>}
           {posts.map((post, i) => <Post 
             key={`post-${i}`}
             owner={user}
@@ -110,6 +111,12 @@ const Profile = () => {
           {isLoadingData && <div className="flex justify-center my-5"><Spinner /></div>}
         </div>
       </div>
+    </div>
+    :
+    
+    <div className="w-full my-32 flex flex-col items-center justify-center">
+      <div className="text-gray-300 text-lg font-bold">Can't find the user :(</div>
+      <button className="underline my-2" onClick={() => router.push('/')}>Go to Home</button>
     </div>
   );
 }

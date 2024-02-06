@@ -1,16 +1,17 @@
-"use client"
+'use client'
 
-import { formatNumber, removeDuplicate } from "@/utils/functions";
-import { getIssues, getLabelCount } from "@/utils/github";
-import { useEffect, useState } from "react";
-import Spinner from "@/components/Spinner";
 import PostItem from "@/components/PostItem";
+import Spinner from "@/components/Spinner";
 import { labels } from "@/utils/constants";
-import { useRouter } from "next/navigation";
+import { formatNumber, removeDuplicate } from "@/utils/functions";
+import { getLabelCount, getLabelledIssues } from "@/utils/github";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-export default function Home() {
+const Label = () => {
 
   const router = useRouter();
+  const { label } = useParams();
   const [posts, setPosts] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
@@ -33,7 +34,7 @@ export default function Home() {
   useEffect(() => {
     (async () => {
       setIsLoadingData(true);
-      const issues = await getIssues(page);
+      const issues = await getLabelledIssues((label as string).replaceAll(' ', '%20'), page);
       if (issues.length === 0) { // no more data
         setIsLastPage(true);
         setIsLoadingData(false);
@@ -63,18 +64,21 @@ export default function Home() {
   }
 
   return (
-    <div className='flex justify-center'>      
+    <div className='flex justify-center'>
       <div className="flex py-10 w-full" style={{ maxWidth: 1024 }}>
         {/* posts */}
         <div className="flex-1 min-w-0 mx-2">
-          {posts.map((post, i) => <PostItem 
-            key={`post-${i}`}
-            owner={post.user}
-            hasPostLink
-            hasUserLink
-            post={post}
-            isMyPost={false}
-          />)}
+          {posts.length === 0 && isLastPage && !isLoadingData ?
+            <div className="text-gray-300 text-lg font-bold text-center">No posts found :(</div>
+            :
+            posts.map((post, i) => <PostItem
+              key={`post-${i}`}
+              owner={post.user}
+              hasPostLink
+              hasUserLink
+              post={post}
+              isMyPost={false}
+            />)}
           {isLoadingData && <div className="flex justify-center my-5"><Spinner /></div>}
         </div>
         {/* sidebar */}
@@ -88,3 +92,5 @@ export default function Home() {
     </div>
   )
 }
+
+export default Label;
