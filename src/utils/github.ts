@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { getRandomItems } from './functions';
 
 // Github access token
 export const accessToken = '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';
