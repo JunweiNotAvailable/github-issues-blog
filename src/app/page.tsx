@@ -1,7 +1,7 @@
 "use client"
 
 import { formatNumber, removeDuplicate } from "@/utils/functions";
-import { getIssues, getUserIssues } from "@/utils/github";
+import { accessToken, getIssues, getUserIssues } from "@/utils/github";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Spinner from "@/components/Spinner";
@@ -23,7 +23,7 @@ export default function Home() {
     (async () => {
       const counts = [];
       for (let i = 0; i < 9; i++) {
-        const count = (await axios.get(`https://api.github.com/search/issues?q=label:${labels[i]}&per_page=1`)).data.total_count;
+        const count = (await axios.get(`https://api.github.com/search/issues?q=label:${labels[i]}&per_page=1`, { headers: { Authorization: `Bearer ${accessToken}` } })).data.total_count;
         counts.push(count);
       }
       setLabelCounts(counts);

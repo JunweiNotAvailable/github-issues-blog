@@ -127,7 +127,7 @@ const MarkdownEditor: React.FC<Props> = ({ source, setSource }) => {
           <textarea ref={textareaRef} className="resize-none border mt-2 w-full flex-1" placeholder="Add description... (At least 30 characters)" value={source} onKeyDown={(e) => setTimeout(() => handleKeyDown(e), 10)} onInput={(e: React.ChangeEvent<HTMLTextAreaElement>) => setSource(e.target.value)} />
           <div className="text-xs text-gray-400 mt-1"><FontAwesomeIcon icon={faMarkdown} className="mr-1" />Markdown</div>
         </div>
-        : <div className="mt-2 w-full flex-1 p-2"><UIWMarkdownEditor.Markdown source={source} /></div>}
+        : <div className="mt-2 w-full flex-1 p-2"><UIWMarkdownEditor.Markdown className={styles.markdownContent} source={source} /></div>}
     </div>
   );
 }

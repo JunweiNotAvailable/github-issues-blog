@@ -1,6 +1,6 @@
 // return true if the color is regarded as a dark color
 export const isDark = (hexColor: string): boolean => {
-  return parseInt(hexColor.slice(1), 16) < 0xffffff * .6;
+  return parseInt(hexColor.replaceAll('#', ''), 16) < 0xffffff * .6;
 }
 
 // get the distance of now and the given time

@@ -50,6 +50,7 @@ const Profile = () => {
       const issues = await getUserIssues(username as string, page);
       if (issues.length === 0) { // no more data
         setIsLastPage(true);
+        setIsLoadingData(false);
         return;
       }
       setPosts(prev => removeDuplicate([...prev, ...issues]).sort((a: any, b: any) => a.updated_at < b.updated_at ? 1 : -1));
@@ -81,7 +82,7 @@ const Profile = () => {
       <div className="flex w-full py-12 px-4" style={{ maxWidth: 1024 }}>
         {/* user info */}
         <div className="w-72 pl-4 pr-8 py-2">
-          <div className="sticky top-20">Search</div>
+          {/* <div className="sticky top-20">Search</div> */}
           <div>
             <div className="rounded-full overflow-hidden w-full aspect-square">
               <Image className="rounded-full w-full h-full border border-slate-300" priority alt="" src={user.avatar_url} width={512} height={512} />
@@ -98,6 +99,7 @@ const Profile = () => {
         {/* posts */}
         <div className="flex-1 ml-10 min-w-0">
           <div className="font-bold text-lg mb-2">Posts</div>
+          {posts.length === 0 && <div className="text-center my-4 text-gray-400">You have no posts</div>}
           {posts.map((post, i) => <Post 
             key={`post-${i}`}
             owner={user}
