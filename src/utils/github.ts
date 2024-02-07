@@ -20,9 +20,13 @@ export const getUser = async (username: string) => {
 
 // return user data from the image url
 export const getUserFromUrl = async (url: string) => {
-  const userId = getUserId(url);
-  const user = await axios.get(`https://api.github.com/user/${userId}`);
-  return user.data;
+  try {
+    const userId = getUserId(url);
+    const user = await axios.get(`https://api.github.com/user/${userId}`);
+    return user.data;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // get user's repos
@@ -41,9 +45,32 @@ export const getUserRepos = async (username: string) => {
   }
 };
 
+// get users whose usernames contain given string 
+export const searchUsers = async (partialName: string, page: number) => {
+  try {
+    const response = await axios.get(`https://api.github.com/search/users`, {
+      params: {
+        q: `${partialName} in:login`,
+        page: page,
+        per_page: 10
+      },
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+    return response.data.items;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 // get issues number of given label
 export const getLabelCount = async (label: string) => {
-  return (await axios.get(`https://api.github.com/search/issues?q=label:${label}&per_page=1`, { headers: { Authorization: `Bearer ${accessToken}` } })).data.total_count;
+  try {
+    return (await axios.get(`https://api.github.com/search/issues?q=label:"${label}"&per_page=1`, { headers: { Authorization: `Bearer ${accessToken}` } })).data.total_count;
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 // create an issue on github
@@ -95,42 +122,58 @@ export const closeIssue = async (username: string, repo: string, issueId: string
 
 // get issues (any)
 export const getIssues = async (page: number) => {
-  const minDate = new Date();
-  minDate.setHours(minDate.getHours() - page);
-  const data = (await axios.get(`https://api.github.com/search/issues?q=is:open+created:>${minDate.toISOString()}&sort=random&order=desc&per_page=10`, {
-    headers: {
-      'Authorization': `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
-    }
-  })).data;
-  return data.items;
+  try {
+    const minDate = new Date();
+    minDate.setHours(minDate.getHours() - page);
+    const data = (await axios.get(`https://api.github.com/search/issues?q=is:open+created:>${minDate.toISOString()}&sort=random&order=desc&per_page=10`, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      }
+    })).data;
+    return data.items;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-// get issues of given user
+// get given user's issues
 export const getUserIssues = async (username: string, page: number) => {
-  const data = (await axios.get(`https://api.github.com/search/issues?q=author:${username}+is:open&sort=updated&order=desc&per_page=10&page=${page}`, {
-    headers: {
-      'Authorization': `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
-    }
-  })).data;
-  return data.items;
+  try {
+    const data = (await axios.get(`https://api.github.com/search/issues?q=author:${username}+is:open&sort=updated&order=desc&per_page=10&page=${page}`, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      }
+    })).data;
+    return data.items;
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 // get single issue by id
 export const getIssue = async (username: string, repo: string, issue: string) => {
-  const data = (await axios.get(`https://api.github.com/repos/${username}/${repo}/issues/${issue}`, {
-    headers: {
-      'Authorization': `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
-    }
-  })).data;
-  return data;
+  try {
+    const data = (await axios.get(`https://api.github.com/repos/${username}/${repo}/issues/${issue}`, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      }
+    })).data;
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // get labelled issues
 export const getLabelledIssues = async (label: string, page: number) => {
-  return (await axios.get(`https://api.github.com/search/issues?q=label:"${label}"&per_page=10&page=${page}`, { 
-    headers: { Authorization: `Bearer ${accessToken}` }
-  })).data.items;
+  try {
+    return (await axios.get(`https://api.github.com/search/issues?q=label:"${label}"&per_page=10&page=${page}`, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    })).data.items;
+  } catch (error) {
+    console.log(error);
+  }
 }

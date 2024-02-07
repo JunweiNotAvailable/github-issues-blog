@@ -134,7 +134,7 @@ const PostItem: React.FC<Props> = ({ post, owner, isMyPost, showComments, hasUse
             </div>}
           </div>}
           {isEditting && <div>
-            <button className="save-button rounded px-4 py-1 text-sm font-bold shadow-sm" onClick={savePost}>Save</button>
+            <button className="blue-button rounded px-4 py-1 text-sm font-bold shadow-sm" onClick={savePost}>Save</button>
             <button className="rounded px-4 py-1 text-sm shadow-sm text-gray-600 border-gray-300 border ml-2" onClick={() => setIsEditting(false)}>Cancel</button>
           </div>}
         </div>
@@ -174,7 +174,7 @@ const PostItem: React.FC<Props> = ({ post, owner, isMyPost, showComments, hasUse
                 </div>
                 <div className={`flex mt-2`}>
                   <input className={`${styles.input} border text-xs py-1 px-2 rounded flex-1 min-w-0`} placeholder="Add your own label" value={customLabelInput} onInput={(e: React.ChangeEvent<HTMLInputElement>) => setCustomLabelInput(e.target.value)} />
-                  <button className={`save-button text-xs px-4 ml-1 rounded`} onClick={() => (customLabelInput.length > 0 && !selectedLabels.find(l => l.name === customLabelInput)) && setTempSelectedLabels(prev => [...prev, { name: customLabelInput, color: '#e0e4e8' }])}>Add</button>
+                  <button className={`blue-button text-xs px-4 ml-1 rounded`} onClick={() => (customLabelInput.length > 0 && !selectedLabels.find(l => l.name === customLabelInput)) && setTempSelectedLabels(prev => [...prev, { name: customLabelInput, color: '#e0e4e8' }])}>Add</button>
                 </div>
               </div>
             </div>
