@@ -98,10 +98,10 @@ const Navbar = () => {
         {/* logo */}
         <Link className="flex items-center" href={'/'}>
           <Image src={'/logo.png'} alt="" height={24} width={24} unoptimized={true} />
-          <div className="font-logo text-lg ml-2">DanielIssues</div>
+          <div className="hidden md:block font-logo text-lg ml-2">DanielIssues</div>
         </Link>
         {/* search input */}
-        <div className="flex-1 max-w-72 relative">
+        <div className="flex-1 relative ml-2 md:ml-0 w-1/2" style={{ maxWidth: 280 }}>
           <input className="search-input w-full outline outline-2 focus:outline-slate-200" placeholder="Search user" value={searchInput} onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
             setSearchInput(e.target.value)
             setIsShowingResults(true);

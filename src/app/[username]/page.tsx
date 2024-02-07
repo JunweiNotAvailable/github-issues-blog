@@ -83,29 +83,29 @@ const Profile = () => {
   return (
     user ?
       <div className="flex justify-center">
-        <div className="flex w-full py-12 px-4" style={{ maxWidth: 1024 }}>
+        <div className="flex flex-col md:flex-row w-full py-12 px-4" style={{ maxWidth: 1024 }}>
           {/* user info */}
-          <div className="w-72 pl-4 pr-8 py-2">
+          <div className="w-72 md:pl-4 py-2 md:pr-8 flex md:flex-col items-start">
             {/* <div className="sticky top-20">Search</div> */}
-            <div>
+            <div className="w-1/3 md:w-full">
               <div className="rounded-full overflow-hidden w-full aspect-square">
                 <Image className="rounded-full w-full h-full border border-slate-300" priority alt="" src={user.avatar_url} width={512} height={512} />
               </div>
             </div>
-            <div className="mx-2">
-              <div className="text-2xl mt-4 font-bold overflow-ellipsis overflow-hidden">{user.name}</div> {/* user's display name */}
+            <div className="mx-3 md:mx-2">
+              <div className="text-lg md:text-2xl md:mt-4 font-bold overflow-ellipsis overflow-hidden">{user.name}</div> {/* user's display name */}
               <div className='text-gray-400 text-sm font-light overflow-ellipsis overflow-hidden'>{username}</div> {/* unique username */}
               <div className="text-sm my-3 overflow-auto">{user.bio}</div>
             </div>
           </div>
           {/* posts */}
-          <div className="flex-1 ml-10 min-w-0">
-            <div className="flex items-center justify-between">
-              <div className="font-bold text-lg mb-2">Posts</div>
-              <button className="blue-button font-bold text-sm py-1 px-3 rounded shadow-sm" onClick={() => router.push('/newpost')}>New Post</button>
+          <div className="flex-1 md:ml-10 min-w-0">
+            <div className="flex items-center justify-between my-4 md:mt-0">
+              <div className="font-bold text-lg">Posts</div>
+              {authUser?.login.toLowerCase() === username.toString().toLowerCase() && <button className="blue-button font-bold text-sm py-1 px-3 rounded shadow-sm" onClick={() => router.push('/newpost')}>New Post</button>}
             </div>
             {posts.length === 0 && isLastPage && !isLoadingData ?
-              <div className="text-center text-gray-300 text-lg font-bold">You have no posts</div>
+              <div className="text-center text-gray-300">{user.login} has no posts</div>
               :
               posts.map((post, i) => <Post
                 key={`post-${i}`}
@@ -122,7 +122,7 @@ const Profile = () => {
 
       !isGettingUser && <div className="w-full my-32 flex flex-col items-center justify-center">
         <div className="text-gray-300 text-lg font-bold">Can't find the user :(</div>
-        <button className="underline my-2" onClick={() => router.push('/')}>Go to Home</button>
+        <button className="underline my-2 hover:bg-white" onClick={() => router.push('/')}>Go to Home</button>
       </div>
   );
 }

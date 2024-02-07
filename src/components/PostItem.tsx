@@ -94,12 +94,12 @@ const PostItem: React.FC<Props> = ({ post, owner, isMyPost, showComments, hasUse
 
   // delete post
   const deletePost = async () => {
-    router.push(`/${owner.login}`);
     await closeIssue(
       post.repository_url.match(/\/repos\/([^\/]+)\/([^\/]+)/)[1],
       post.repository_url.match(/\/repos\/([^\/]+)\/([^\/]+)/)[2],
       post.number,
     );
+    router.push(`/${owner.login}`);
   }
 
   return (

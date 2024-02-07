@@ -68,6 +68,7 @@ const NewPost = () => {
   // submit post -> create issue
   const submitPost = async () => {
     await postIssue(username, repoInput, title, body, selectedLabels);
+    router.push(`/${username}`);
   }
 
   return (
@@ -76,7 +77,7 @@ const NewPost = () => {
         
         <h1 className="text-xl border-b p-2 font-bold">New post</h1>
 
-        <div className="py-4 px-2 flex flex-1">
+        <div className="py-4 px-2 flex-1 flex flex-col md:flex-row">
 
           {/* inputs */}
           <div className="flex flex-col flex-1">
@@ -105,13 +106,13 @@ const NewPost = () => {
               <MarkdownEditor source={body} setSource={setBody} />
             </div>
             {/* submit button */}
-            <div className="flex justify-end mt-3">
+            <div className="hidden md:flex justify-end mt-3">
               <button className={`${styles.submitButton} ${isValidPost ? '' : styles.disabled} shadow rounded-md py-1.5 px-8 text-sm font-bold`} onClick={submitPost} disabled={!isValidPost}>Post</button>
             </div>
           </div>
 
           {/* labels */}
-          <div className="w-64 ml-8 box-border">
+          <div className="mt-2 md:mt-0 w-full md:w-64 md:ml-8 box-border">
             {/* selected */}
             <div className="flex flex-wrap">
               {selectedLabels.map((label, i) => <div className="flex rounded-full items-center m-1 text-xs cursor-default border py-1 px-2" key={`selected-${i}`} 
@@ -140,6 +141,11 @@ const NewPost = () => {
               <input className={`${styles.input} border text-sm py-1 px-2 rounded flex-1 min-w-0`} placeholder="Add your own label" value={customLabelInput} onInput={(e: React.ChangeEvent<HTMLInputElement>) => setCustomLabelInput(e.target.value)} />
               <button className={`${styles.submitButton} text-sm px-4 ml-1 rounded`} onClick={() => (customLabelInput.length > 0 && !selectedLabels.find(l => l.name === customLabelInput)) && setSelectedLabels(prev => [...prev, { name: customLabelInput, color: '#e0e4e8' }])}>Add</button>
             </div>
+          </div>
+
+          {/* mobile submit button */}
+          <div className="flex md:hidden justify-end mt-10">
+            <button className={`${styles.submitButton} ${isValidPost ? '' : styles.disabled} shadow rounded-md py-1.5 px-8 text-sm font-bold`} onClick={submitPost} disabled={!isValidPost}>Post</button>
           </div>
 
         </div>

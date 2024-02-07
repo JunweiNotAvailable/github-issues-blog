@@ -78,7 +78,7 @@ export default function Home() {
           {isLoadingData && <div className="flex justify-center my-5"><Spinner /></div>}
         </div>
         {/* sidebar */}
-        <div className="w-64 h-fit mx-2 ml-4 rounded-lg shadow-sm bg-slate-100 py-1 sticky top-16 border">
+        <div className="hidden md:block w-64 h-fit mx-2 ml-4 rounded-lg shadow-sm bg-slate-100 py-1 sticky top-16 border">
           <div className="text-xs font-bold mx-3 my-2">Popular labels</div>
           <div className="flex flex-col mt-1">
             {labels.slice(0, 9).map((label, i) => <button onClick={() => router.push(`/label/${label}`)} className="hover:bg-slate-200 text-left py-2 px-3 text-sm" key={`label-${i}`}>{label}<span className="text-xs text-gray-400 ml-2">{labelCounts[i] ? `${formatNumber(labelCounts[i])} posts` : ''}</span></button>)}
