@@ -2,8 +2,6 @@
 
 import PostItem from "@/components/PostItem";
 import { getIssue, getUser, getUserFromUrl } from "@/utils/github";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";

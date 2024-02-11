@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Github access token
-export const accessToken = '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';
+export const accessToken = process.env.accessToken as string;
 
 // get user id from the image url
 export const getUserId = (url: string) => {

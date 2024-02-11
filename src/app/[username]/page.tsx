@@ -4,6 +4,7 @@ import Post from "@/components/PostItem";
 import Spinner from "@/components/Spinner";
 import { removeDuplicate } from "@/utils/functions";
 import { getUser, getUserFromUrl, getUserIssues, getUserRepos } from "@/utils/github";
+import { Metadata } from "next";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
@@ -121,7 +122,7 @@ const Profile = () => {
       :
 
       !isGettingUser && <div className="w-full my-32 flex flex-col items-center justify-center">
-        <div className="text-gray-300 text-lg font-bold">Can't find the user :(</div>
+        <div className="text-gray-300 text-lg font-bold">Can&apos;t find the user :(</div>
         <button className="underline my-2 hover:bg-white" onClick={() => router.push('/')}>Go to Home</button>
       </div>
   );
