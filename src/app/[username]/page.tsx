@@ -122,7 +122,7 @@ const Profile = () => {
       :
 
       !isGettingUser && <div className="w-full my-32 flex flex-col items-center justify-center">
-        <div className="text-gray-300 text-lg font-bold">Can&apos;t find the user :(</div>
+        <div className="text-gray-300 text-lg font-bold">Cannot find the user :(</div>
         <button className="underline my-2 hover:bg-white" onClick={() => router.push('/')}>Go to Home</button>
       </div>
   );
