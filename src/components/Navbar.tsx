@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
+import Spinner from "./Spinner";
 
 const Navbar = () => {
 
@@ -20,15 +21,15 @@ const Navbar = () => {
   const [page, setPage] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
   const [isLoadingData, setIsLoadingData] = useState(false);
-  const [initialSearching, setInitialSearching] = useState(false);
+  const [firstSearch, setFirstSearch] = useState(false);
   const [isShowingResults, setIsShowingResults] = useState(false);
 
   // load more data when page updated
   useEffect(() => {
     if (!searchInput) return; // return when no input
-    if (page === 1 && !initialSearching) return; // return if first page
+    if (page === 1 && !firstSearch) return; // return if first page
     (async () => {
-      setInitialSearching(false);
+      setFirstSearch(false);
       setIsLoadingData(true);
       const users = await searchUsers(searchInput, page);
       if (!users) return;
@@ -40,18 +41,12 @@ const Navbar = () => {
       setResultUsers(prev => removeDuplicate([...prev, ...users]));
       setIsLoadingData(false);
     })();
-  }, [page, initialSearching]);
+  }, [page]);
 
-  // reset users searching when input updated
+  // reset page when first search
   useEffect(() => {
-    setResultUsers([]);
-    setIsLastPage(false);
-    setIsLoadingData(false);
-    setPage(1);
-    if (searchInput) {
-      setInitialSearching(true);
-    }
-  }, [searchInput]);
+    if (firstSearch) setPage(1);
+  }, [firstSearch]);
 
   // fetch user data 
   useEffect(() => {
@@ -62,18 +57,18 @@ const Navbar = () => {
     }
   }, [status]);
 
-  
+
   // click event handler
   const handleClick = (e: MouseEvent) => {
     const target = e.target as HTMLElement;
     if (!target.closest('#user-button')) { // close menu if not clicking the user button
       setIsMenuOpened(false);
     }
-    if (!target.closest('.users-result-dropdown')) { // close users result
+    if (!target.closest('.users-result-dropdown') && !target.closest('.search-input-container')) { // close users result
       setIsShowingResults(false);
     }
   };
-  
+
   // register click event
   useEffect(() => {
     document.addEventListener('click', handleClick);
@@ -93,6 +88,23 @@ const Navbar = () => {
     }
   }
 
+  // handle key down on input
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      resetAndSearch();
+    }
+  }
+
+  // reset users result and search for new users
+  const resetAndSearch = () => {
+    setResultUsers([]);
+    setFirstSearch(true);
+    setIsLastPage(false);
+    setIsLoadingData(false);
+    setPage(0);
+    setIsShowingResults(true);
+  }
+
   return (
     <>
 
@@ -104,21 +116,26 @@ const Navbar = () => {
         </Link>
         {/* search input */}
         <div className="flex-1 relative ml-2 md:ml-0 w-1/2" style={{ maxWidth: 280 }}>
-          <input className="search-input w-full outline outline-2 focus:outline-slate-200" placeholder="Search user" value={searchInput} onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setSearchInput(e.target.value)
-            setIsShowingResults(true);
-          }} />
+          <div className="search-input-container w-full relative">
+            <input className="search-input w-full outline outline-2 focus:outline-slate-200" placeholder="Search user" value={searchInput} onInput={(e: React.ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value)} onKeyDown={handleKeyDown} />
+            <button className="no-hover absolute right-0 top-1/2 -translate-y-1/2 font-bold text-sm py-1 px-3" style={{ color: 'var(--color-primary-blue)' }} onClick={resetAndSearch}>Search</button>
+          </div>
           {/* search results */}
           {(searchInput.length > 0 && isShowingResults) && <div className="users-result-dropdown scroller absolute w-full top-full mt-1 z-30 bg-white border border-slate-200 box-border shadow rounded max-h-64" onScroll={handleScroll}>
             {resultUsers.length === 0 && isLastPage && !isLoadingData ?
-              <div>No user found :(</div>
-              : 
-              resultUsers.map((result, i) => <div key={`user-${i}`} className="flex items-center cursor-pointer my-1 hover:bg-slate-100 py-2 px-3" onClick={() => router.push(`/${result.login}`)}>
+              <div className="text-center py-2 text-sm font-bold text-gray-400">No user found :(</div>
+              :
+              resultUsers.map((result, i) => <div key={`user-${i}`} className="flex items-center cursor-pointer my-1 hover:bg-slate-100 py-2 px-3" onClick={() => {
+                router.push(`/${result.login}`)
+                setIsShowingResults(false);
+              }}>
                 <div className={`w-8 h-8 overflow-hidden rounded-full border`}>
                   <Image className="w-full h-full overflow-hidden rounded-full" alt="" src={result.avatar_url} width={512} height={512} />
                 </div>
                 <div className="text-sm ml-2">{result?.login}</div>
               </div>)}
+              {/* loading */}
+              {isLoadingData && <div className="flex justify-center py-2"><Spinner size={24} /></div>}
           </div>}
         </div>
         {/* nav menu / login button */}
