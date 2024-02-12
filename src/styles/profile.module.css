@@ -1,0 +1,9 @@
+.userInfo {
+  background: #f3f8fb;
+}
+@media screen and (max-width: 786px) {
+  .userInfo {
+    background: none;
+    width: 100%;
+  }
+}

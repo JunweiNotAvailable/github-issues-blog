@@ -23,13 +23,13 @@ const CommentItem: React.FC<Props> = React.memo(({ comment }) => {
   return (
     <div className="py-8 border-t">
       {/* header - picture, user, time */}
-      <div className="flex items-center">
-        <div className="w-10 h-10 overflow-hidden rounded-full border cursor-pointer" onClick={() => router.push(`/${comment.user.login}`)}>
+      <div className="flex items-center cursor-pointer" onClick={() => router.push(`/${comment.user.login}`)}>
+        <div className="w-10 h-10 overflow-hidden rounded-full border">
           <Image className="w-full h-full overflow-hidden rounded-full" alt="" src={comment.user.avatar_url} width={512} height={512} />
         </div>
         <div className="ml-2">
           <div className="flex items-center">
-            <div className="text-sm hover:underline font-bold cursor-pointer" onClick={() => router.push(`/${comment.user.login}`)}>{user?.name || comment.user.login}</div>
+            <div className="text-sm font-bold">{user?.name || comment.user.login}</div>
             <div className="text-xs text-slate-400 ml-2">{getTimeFromNow(comment.updated_at)}</div>
           </div>
           <div className="text-xs text-slate-400">{comment.user.login}</div>

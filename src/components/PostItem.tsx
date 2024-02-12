@@ -18,11 +18,11 @@ const PostItem: React.FC<Props> = React.memo(({ post }) => {
   const getRoute = () => `/${post.repository_url.match(/\/repos\/([^\/]+)\/([^\/]+)/)[1]}/${post.repository_url.match(/\/repos\/([^\/]+)\/([^\/]+)/)[2]}/${post.number}`;
 
   return (
-    <div className="mb-4 py-4 border border-slate-200 rounded-lg shadow-sm bg-gray-50 hover:bg-gray-100 cursor-pointer" onClick={() => router.push(getRoute())}>
+    <div className={`${styles.postItem} mb-4 py-4 rounded-lg cursor-pointer`} onClick={() => router.push(getRoute())}>
       {/* title, body & labels */}
       <div className="mt-1 px-4">
         {/* title */}
-        <div className={"font-semibold"}>{post.title}</div>
+        <div className="font-semibold text-xl">{post.title}</div>
         {/* body */}
         <div className="mt-2">
           <UiwMarkdownEditor.Markdown className={styles.markdownContent} source={post.body} />

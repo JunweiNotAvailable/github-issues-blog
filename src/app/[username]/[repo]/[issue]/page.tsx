@@ -146,7 +146,7 @@ const Post = () => {
         <div className='w-full flex justify-between items-center my-4'>
           {/* title */}
           {isEditting ? <div className={styles.inputGroup}><input placeholder="Title" value={tempTitle} onInput={(e: React.ChangeEvent<HTMLInputElement>) => setTempTitle(e.target.value)} /></div>
-            : <div className='font-bold text-xl bg-white my-4'>{title}</div>}
+            : <div className='font-bold text-xl my-4'>{title}</div>}
           {/* post options - edit/delete */}
           {(isMyPost && !isEditting) &&
             <div className="post-options-button relative" onClick={() => setIsOptionsOpened(!isOptionsOpened)}>
@@ -166,14 +166,14 @@ const Post = () => {
         {/* post */}
         <div className="mb-4">
           {/* picture, name and time */}
-          <div className={`flex justify-between items-start`}>
+          <div className={`flex justify-between items-start cursor-pointer`} onClick={() => router.push(`/${owner.login}`)}>
             <div className="flex items-center">
-              <div className={`w-10 h-10 overflow-hidden rounded-full border cursor-pointer`} onClick={() => router.push(`/${owner.login}`)}>
+              <div className={`w-10 h-10 overflow-hidden rounded-full border`}>
                 <Image className="w-full h-full overflow-hidden rounded-full" alt="" src={owner.avatar_url} width={512} height={512} />
               </div>
               <div className="ml-4">
                 <div className="flex items-center">
-                  <div className={"text-sm hover:underline cursor-pointer font-bold"} onClick={() => router.push(`/${owner.login}`)}>{owner.name || owner.login}</div>
+                  <div className={"text-sm font-bold"} >{owner.name || owner.login}</div>
                   <div className="text-xs text-slate-400 ml-2">{getTimeFromNow(post.updated_at)}</div>
                 </div>
                 <div className="text-xs text-slate-400">{post.repository_url.replace('https://api.github.com/repos/', '')}</div>

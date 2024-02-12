@@ -109,7 +109,7 @@ const Navbar = () => {
   return (
     <>
 
-      <div className={`border-b border-slate-200 pl-5 pr-3 flex sticky top-0 z-50 bg-white justify-between items-center w-full box-border h-14`}>
+      <div className={`navbar border-b border-slate-200 pl-5 pr-3 flex sticky top-0 z-50 justify-between items-center w-full box-border h-14`}>
         {/* logo */}
         <Link className="flex items-center" href={'/'}>
           <Image src={'/logo.png'} alt="" height={24} width={24} unoptimized={true} />
@@ -126,18 +126,18 @@ const Navbar = () => {
             {resultUsers.length === 0 && isLastPage && !isLoadingData ?
               <div className="text-center py-2 text-sm font-bold text-gray-400">No user found :(</div>
               :
-              resultUsers.map((result, i) => <SearchUser 
+              resultUsers.map((result, i) => <SearchUser
                 key={`${result.login}`}
                 user={result}
                 setIsShowingResults={setIsShowingResults}
               />)}
-              {/* loading */}
-              {isLoadingData && <div className="flex justify-center py-2"><Spinner size={24} /></div>}
+            {/* loading */}
+            {isLoadingData && <div className="flex justify-center py-2"><Spinner size={24} /></div>}
           </div>}
         </div>
         {/* nav menu / login button */}
-        {status !== 'loading' && <div className="flex items-center">
-          {username ?
+        <div className="flex items-center">
+          {status === 'authenticated' ?
             <nav>
               {/* new post button */}
               <Link className="w-7 h-7 rounded p-0 flex justify-center items-center" href={'/newpost'}><Image src={'/icon-plus.svg'} height={16} width={16} alt="" /></Link>
@@ -147,8 +147,10 @@ const Navbar = () => {
               </div>
             </nav>
             :
-            <button className="black-button ml-4 text-sm py-1 px-4" onClick={() => signIn('github')}>Log in</button>}
-        </div>}
+            status === 'unauthenticated' ?
+              <button className="black-button ml-4 text-sm py-1 px-4" onClick={() => signIn('github')}>Log in</button>
+              : <div />}
+        </div>
       </div>
 
       {/* menu */}

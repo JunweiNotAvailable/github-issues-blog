@@ -30,11 +30,14 @@ export default function Home() {
       <button className="black-button text-lg px-6 py-1 mt-4" onClick={() => signIn('github')}>Log in</button>
     </div>
     :
+    status === 'loading' ?
     <div className='flex flex-1 items-center justify-center flex-col'>
       <div className="flex items-center">
         <Spinner />
         <div className="ml-4 font-bold text-gray-300">Loading...</div>
       </div>
     </div>
+    :
+    <></>
   )
 }
