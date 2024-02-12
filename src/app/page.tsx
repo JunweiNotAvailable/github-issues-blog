@@ -1,5 +1,6 @@
 "use client"
 
+import Spinner from "@/components/Spinner";
 import { getUserFromUrl } from "@/utils/github";
 import { signIn, useSession } from "next-auth/react"
 import { useRouter } from "next/navigation";
@@ -22,11 +23,18 @@ export default function Home() {
   }, [status]);
 
   return (
-    status === 'unauthenticated' &&
+    status === 'unauthenticated' ?
     <div className='flex flex-1 items-center justify-center flex-col'>      
       <div className="font-bold text-3xl text-center">Create content with Github issues</div>
       <div></div>
       <button className="black-button text-lg px-6 py-1 mt-4" onClick={() => signIn('github')}>Log in</button>
+    </div>
+    :
+    <div className='flex flex-1 items-center justify-center flex-col'>
+      <div className="flex items-center">
+        <Spinner />
+        <div className="ml-4 font-bold text-gray-300">Loading...</div>
+      </div>
     </div>
   )
 }

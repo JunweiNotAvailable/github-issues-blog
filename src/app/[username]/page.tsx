@@ -2,12 +2,11 @@
 
 import Post from "@/components/PostItem";
 import Spinner from "@/components/Spinner";
-import { removeDuplicate } from "@/utils/functions";
 import { getUser, getUserFromUrl, getUserIssues } from "@/utils/github";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const Profile = () => {
 
