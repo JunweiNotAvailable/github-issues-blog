@@ -26,7 +26,6 @@ const Profile = () => {
   const [page, setPage] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
   const [isLoadingData, setIsLoadingData] = useState(false);
-  const isInitialRender = useRef(true);
 
   // fetch user data 
   useEffect(() => {
@@ -51,11 +50,6 @@ const Profile = () => {
 
   // load data when page updated
   useEffect(() => {
-    // prevent calling api twice
-    // if (isInitialRender.current) {
-    //   isInitialRender.current = false;
-    //   return;
-    // }
     (async () => {
       setIsLoadingData(true);
       const { issues, totalCount } = await getUserIssues(username as string, page) || {};
