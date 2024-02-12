@@ -10,6 +10,7 @@ import { labelColors, labels } from "@/utils/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { isDark } from "@/utils/functions";
+import Spinner from "@/components/Spinner";
 
 const NewPost = () => {
 
@@ -28,6 +29,7 @@ const NewPost = () => {
   const [customLabelInput, setCustomLabelInput] = useState('');
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
   const [isValidPost, setIsValidPost] = useState(false);
+  const [isPosting, setIsPosting] = useState(false);
 
   // register events
   useEffect(() => {
@@ -67,16 +69,16 @@ const NewPost = () => {
 
   // submit post -> create issue
   const submitPost = async () => {
+    setIsPosting(true);
     await postIssue(username, repoInput, title, body, selectedLabels);
+    setIsPosting(false);
     router.push(`/${username}`);
   }
 
   return (
     <div className="flex justify-center">
       <div className="w-full py-8 flex flex-col" style={{ maxWidth: 1024 }}>
-        
         <h1 className="text-xl border-b p-2 font-bold">New post</h1>
-
         <div className="py-4 px-2 flex-1 flex flex-col md:flex-row">
 
           {/* inputs */}
@@ -107,7 +109,7 @@ const NewPost = () => {
             </div>
             {/* submit button */}
             <div className="hidden md:flex justify-end mt-3">
-              <button className={`${styles.submitButton} ${isValidPost ? '' : styles.disabled} shadow rounded-md py-1.5 px-8 text-sm font-bold`} onClick={submitPost} disabled={!isValidPost}>Post</button>
+              <button className={`${styles.submitButton} ${isValidPost && !isPosting ? '' : styles.disabled} shadow rounded-md py-1.5 px-8 text-sm font-bold `} onClick={submitPost} disabled={!isValidPost || isPosting}>{isPosting ? <Spinner size={20} color="#fff" /> : 'Post'}</button>
             </div>
           </div>
 
@@ -149,8 +151,6 @@ const NewPost = () => {
           </div>
 
         </div>
-
-
       </div>
     </div>
   );
