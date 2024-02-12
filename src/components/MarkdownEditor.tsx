@@ -132,4 +132,6 @@ const MarkdownEditor: React.FC<Props> = React.memo(({ source, setSource }) => {
   );
 })
 
+MarkdownEditor.displayName = 'MarkdownEditor';
+
 export default MarkdownEditor;

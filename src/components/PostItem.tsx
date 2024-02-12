@@ -45,4 +45,6 @@ const PostItem: React.FC<Props> = React.memo(({ post }) => {
   );
 })
 
+PostItem.displayName = 'PostItem';
+
 export default PostItem;

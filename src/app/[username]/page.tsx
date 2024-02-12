@@ -106,7 +106,7 @@ const Profile = () => {
           {/* posts */}
           <div className="flex-1 md:ml-10 min-w-0">
             <div className="flex items-center justify-between my-4 md:mt-0">
-              <div className="font-bold text-lg">{username}'s posts</div>
+              <div className="font-bold text-lg">{`${username}'s posts`}</div>
               {authUser?.login.toLowerCase() === username.toString().toLowerCase() && <button className="blue-button font-bold text-sm py-1 px-3 rounded shadow-sm" onClick={() => router.push('/newpost')}>New Post</button>}
             </div>
             {posts.length === 0 && isLastPage && !isLoadingData ?
