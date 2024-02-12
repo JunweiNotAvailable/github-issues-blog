@@ -52,10 +52,10 @@ const Profile = () => {
   // load data when page updated
   useEffect(() => {
     // prevent calling api twice
-    if (isInitialRender.current) {
-      isInitialRender.current = false;
-      return;
-    }
+    // if (isInitialRender.current) {
+    //   isInitialRender.current = false;
+    //   return;
+    // }
     (async () => {
       setIsLoadingData(true);
       const { issues, totalCount } = await getUserIssues(username as string, page) || {};
