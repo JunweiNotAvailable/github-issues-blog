@@ -146,7 +146,7 @@ export const getUserIssues = async (username: string, page: number) => {
         'Content-Type': 'application/json',
       }
     })).data;
-    return data.items;
+    return { issues: data.items, totalCount: data.total_count };
   } catch (error) {
     console.log(error)
   }

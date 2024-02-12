@@ -10,8 +10,8 @@ config.autoAddCss = false;
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'DanielIssues',
-  description: 'Create contents with Github',
+  title: 'IssuesBlog',
+  description: 'Create content with Github issues',
 }
 
 export default function RootLayout({
@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <NextAuthProvider>
-          <div>
+          <div className='flex flex-col min-h-full'>
             <Navbar />
             {children}
           </div>

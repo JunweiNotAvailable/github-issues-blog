@@ -10,8 +10,7 @@ interface Props {
   comment: any
 }
 
-const CommentItem: React.FC<Props> = ({ comment }) => {
-  console.log(comment)
+const CommentItem: React.FC<Props> = React.memo(({ comment }) => {
 
   const router = useRouter();
   const [user, setUser] = useState<any | null>(null);
@@ -22,7 +21,7 @@ const CommentItem: React.FC<Props> = ({ comment }) => {
   }, []);
 
   return (
-    <div className="p-4 border-t hover:bg-slate-200">
+    <div className="py-8 border-t">
       {/* header - picture, user, time */}
       <div className="flex items-center">
         <div className="w-10 h-10 overflow-hidden rounded-full border cursor-pointer" onClick={() => router.push(`/${comment.user.login}`)}>
@@ -42,6 +41,6 @@ const CommentItem: React.FC<Props> = ({ comment }) => {
       </div>
     </div>
   );
-}
+})
  
 export default CommentItem;

@@ -6,7 +6,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 const Navbar = () => {
 
@@ -62,18 +62,20 @@ const Navbar = () => {
     }
   }, [status]);
 
+  
+  // click event handler
+  const handleClick = (e: MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (!target.closest('#user-button')) { // close menu if not clicking the user button
+      setIsMenuOpened(false);
+    }
+    if (!target.closest('.users-result-dropdown')) { // close users result
+      setIsShowingResults(false);
+    }
+  };
+  
   // register click event
   useEffect(() => {
-    // click event handler
-    const handleClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (!target.closest('#user-button')) { // close menu if not clicking the user button
-        setIsMenuOpened(false);
-      }
-      if (!target.closest('.users-result-dropdown')) { // close users result
-        setIsShowingResults(false);
-      }
-    }
     document.addEventListener('click', handleClick);
     return () => document.removeEventListener('click', handleClick);
   }, []);
@@ -98,7 +100,7 @@ const Navbar = () => {
         {/* logo */}
         <Link className="flex items-center" href={'/'}>
           <Image src={'/logo.png'} alt="" height={24} width={24} unoptimized={true} />
-          <div className="hidden md:block font-logo text-lg ml-2">DanielIssues</div>
+          <div className="hidden md:block font-logo text-lg ml-2">IssuesBlog</div>
         </Link>
         {/* search input */}
         <div className="flex-1 relative ml-2 md:ml-0 w-1/2" style={{ maxWidth: 280 }}>
@@ -131,10 +133,9 @@ const Navbar = () => {
               </div>
             </nav>
             :
-            <button className="black-button ml-4" onClick={() => signIn('github')}>Log in</button>}
+            <button className="black-button ml-4 text-sm py-1 px-4" onClick={() => signIn('github')}>Log in</button>}
         </div>}
       </div>
-
 
       {/* menu */}
       {<menu className={`${isMenuOpened ? '' : 'hidden '}fixed bg-white shadow py-1 border border-slate-200 rounded top-14 right-7 flex flex-col`}>
@@ -144,6 +145,6 @@ const Navbar = () => {
 
     </>
   );
-}
+};
 
 export default Navbar;

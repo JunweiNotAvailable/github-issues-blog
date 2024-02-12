@@ -12,7 +12,7 @@ interface Props {
   setSource: React.Dispatch<React.SetStateAction<string>>
 }
 
-const MarkdownEditor: React.FC<Props> = ({ source, setSource }) => {
+const MarkdownEditor: React.FC<Props> = React.memo(({ source, setSource }) => {
 
   const textareaRef = useRef(null);
   const [mode, setMode] = useState('write'); // the current mode of editor - write/preview
@@ -108,8 +108,8 @@ const MarkdownEditor: React.FC<Props> = ({ source, setSource }) => {
       {/* header */}
       <div className="flex items-center justify-between">
         <div>
-          <button className={`${styles.mdEditorButton}`} style={{ color: mode === 'write' ? '#444' : '#888', background: mode === 'write' ? 'var(--color-secondary-hover)' : '' }} onClick={() => setMode('write')}>Write</button>
-          <button className={`${styles.mdEditorButton} ml-2`} style={{ color: mode === 'preview' ? '#444' : '#888', background: mode === 'preview' ? 'var(--color-secondary-hover)' : '' }} onClick={() => setMode('preview')}>Preview</button>
+          <button className={`${styles.mdEditorButton} mr-2`} style={{ color: mode === 'write' ? '#444' : '#888', background: mode === 'write' ? 'var(--color-secondary-hover)' : '' }} onClick={() => setMode('write')}>Write</button>
+          <button className={`${styles.mdEditorButton}`} style={{ color: mode === 'preview' ? '#444' : '#888', background: mode === 'preview' ? 'var(--color-secondary-hover)' : '' }} onClick={() => setMode('preview')}>Preview</button>
         </div>
         {mode === 'write' && <div className={styles.actionBar}>
           <button onClick={() => insertMarkdownFormat('heading')}><FontAwesomeIcon icon={faHeading} /></button>
@@ -130,6 +130,6 @@ const MarkdownEditor: React.FC<Props> = ({ source, setSource }) => {
         : <div className="mt-2 w-full flex-1 p-2"><UIWMarkdownEditor.Markdown className={styles.markdownContent} source={source} /></div>}
     </div>
   );
-}
+})
 
 export default MarkdownEditor;

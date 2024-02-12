@@ -51,7 +51,7 @@ const NewPost = () => {
         setUsername(name);
         setRepos(data);
       } else if (status === 'unauthenticated') { // redirect to login page if no user logged in
-        router.push('/');
+        router.replace('/');
       }
     })();
   }, [status]);

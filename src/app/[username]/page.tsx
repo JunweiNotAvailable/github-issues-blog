@@ -23,6 +23,7 @@ const Profile = () => {
   const [user, setUser] = useState<any | null>(null);
 
   const [posts, setPosts] = useState<any[]>([]);
+  const [postsCount, setPostsCount] = useState(-1);
   const [page, setPage] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
   const [isLoadingData, setIsLoadingData] = useState(false);
@@ -52,7 +53,10 @@ const Profile = () => {
   useEffect(() => {
     (async () => {
       setIsLoadingData(true);
-      const issues = await getUserIssues(username as string, page);
+      const { issues, totalCount } = await getUserIssues(username as string, page) || {};
+      if (postsCount === -1) {
+        setPostsCount(totalCount);
+      }
       if (issues.length === 0) { // no more data
         setIsLastPage(true);
         setIsLoadingData(false);
@@ -88,21 +92,22 @@ const Profile = () => {
           {/* user info */}
           <div className="w-72 md:pl-4 py-2 md:pr-8 flex md:flex-col items-start">
             {/* <div className="sticky top-20">Search</div> */}
-            <div className="w-1/3 md:w-full">
+            <div className="w-1/3 md:w-2/3">
               <div className="rounded-full overflow-hidden w-full aspect-square">
                 <Image className="rounded-full w-full h-full border border-slate-300" priority alt="" src={user.avatar_url} width={512} height={512} />
               </div>
             </div>
             <div className="mx-3 md:mx-2">
-              <div className="text-lg md:text-2xl md:mt-4 font-bold overflow-ellipsis overflow-hidden">{user.name}</div> {/* user's display name */}
+              <div className="text-lg md:text-2xl mt-4 font-bold overflow-ellipsis overflow-hidden">{user.name}</div> {/* user's display name */}
               <div className='text-gray-400 text-sm font-light overflow-ellipsis overflow-hidden'>{username}</div> {/* unique username */}
+              {postsCount !== -1 && <div className="text-gray-400 text-sm my-2 overflow-ellipsis overflow-hidden">{postsCount} post{postsCount === 1 ? '' : 's'}</div>}
               <div className="text-sm my-3 overflow-auto">{user.bio}</div>
             </div>
           </div>
           {/* posts */}
           <div className="flex-1 md:ml-10 min-w-0">
             <div className="flex items-center justify-between my-4 md:mt-0">
-              <div className="font-bold text-lg">Posts</div>
+              <div className="font-bold text-lg">{username}'s posts</div>
               {authUser?.login.toLowerCase() === username.toString().toLowerCase() && <button className="blue-button font-bold text-sm py-1 px-3 rounded shadow-sm" onClick={() => router.push('/newpost')}>New Post</button>}
             </div>
             {posts.length === 0 && isLastPage && !isLoadingData ?
@@ -110,10 +115,7 @@ const Profile = () => {
               :
               posts.map((post, i) => <Post
                 key={`post-${i}`}
-                owner={user}
                 post={post}
-                hasPostLink
-                isMyPost={authUser?.login.toLowerCase() === username.toString().toLowerCase()}
               />)}
             {isLoadingData && <div className="flex justify-center my-5"><Spinner /></div>}
           </div>
