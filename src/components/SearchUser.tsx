@@ -24,4 +24,6 @@ const SearchUser: React.FC<Props> = React.memo(({ user, setIsShowingResults }) =
   )
 })
 
+SearchUser.displayName = 'SearchUser';
+
 export default SearchUser
