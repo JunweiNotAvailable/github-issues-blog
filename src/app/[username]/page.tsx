@@ -7,7 +7,7 @@ import { getUser, getUserFromUrl, getUserIssues } from "@/utils/github";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Profile = () => {
 
@@ -26,6 +26,7 @@ const Profile = () => {
   const [page, setPage] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
   const [isLoadingData, setIsLoadingData] = useState(false);
+  const isInitialRender = useRef(true);
 
   // fetch user data 
   useEffect(() => {
@@ -50,6 +51,11 @@ const Profile = () => {
 
   // load data when page updated
   useEffect(() => {
+    // prevent calling api twice
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
+      return;
+    }
     (async () => {
       setIsLoadingData(true);
       const { issues, totalCount } = await getUserIssues(username as string, page) || {};
@@ -61,7 +67,7 @@ const Profile = () => {
         setIsLoadingData(false);
         return;
       }
-      setPosts(prev => removeDuplicate([...prev, ...issues]).sort((a: any, b: any) => a.updated_at < b.updated_at ? 1 : -1));
+      setPosts(prev => [...prev, ...issues].sort((a: any, b: any) => a.updated_at < b.updated_at ? 1 : -1));
       setIsLoadingData(false);
     })();
   }, [page]);
@@ -97,7 +103,7 @@ const Profile = () => {
               </div>
             </div>
             <div className="mx-3 md:mx-2">
-              <div className="text-lg md:text-2xl mt-4 font-bold overflow-ellipsis overflow-hidden">{user.name}</div> {/* user's display name */}
+              <div className="text-lg md:text-2xl mt-2 md:mt-4 font-bold overflow-ellipsis overflow-hidden">{user.name}</div> {/* user's display name */}
               <div className='text-gray-400 text-sm font-light overflow-ellipsis overflow-hidden'>{username}</div> {/* unique username */}
               {postsCount !== -1 && <div className="text-gray-400 text-sm my-2 overflow-ellipsis overflow-hidden">{postsCount} post{postsCount === 1 ? '' : 's'}</div>}
               <div className="text-sm my-3 overflow-auto">{user.bio}</div>
