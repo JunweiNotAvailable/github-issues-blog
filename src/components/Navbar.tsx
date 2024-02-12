@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 import Spinner from "./Spinner";
+import SearchUser from "./SearchUser";
 
 const Navbar = () => {
 
@@ -125,15 +126,11 @@ const Navbar = () => {
             {resultUsers.length === 0 && isLastPage && !isLoadingData ?
               <div className="text-center py-2 text-sm font-bold text-gray-400">No user found :(</div>
               :
-              resultUsers.map((result, i) => <div key={`user-${i}`} className="flex items-center cursor-pointer my-1 hover:bg-slate-100 py-2 px-3" onClick={() => {
-                router.push(`/${result.login}`)
-                setIsShowingResults(false);
-              }}>
-                <div className={`w-8 h-8 overflow-hidden rounded-full border`}>
-                  <Image className="w-full h-full overflow-hidden rounded-full" alt="" src={result.avatar_url} width={512} height={512} />
-                </div>
-                <div className="text-sm ml-2">{result?.login}</div>
-              </div>)}
+              resultUsers.map((result, i) => <SearchUser 
+                key={`${result.login}`}
+                user={result}
+                setIsShowingResults={setIsShowingResults}
+              />)}
               {/* loading */}
               {isLoadingData && <div className="flex justify-center py-2"><Spinner size={24} /></div>}
           </div>}
