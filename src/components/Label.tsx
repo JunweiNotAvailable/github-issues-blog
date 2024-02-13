@@ -14,4 +14,6 @@ const Label: React.FC<Props> = React.memo(({ label }) => {
   )
 })
 
+Label.displayName = 'Label';
+
 export default Label
