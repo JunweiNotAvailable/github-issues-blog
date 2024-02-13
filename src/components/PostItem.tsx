@@ -5,6 +5,7 @@ import styles from '../styles/post.module.css';
 import { faComment } from "@fortawesome/free-regular-svg-icons";
 import { useRouter } from "next/navigation";
 import React from "react";
+import Label from "./Label";
 
 interface Props {
   post: any
@@ -29,12 +30,7 @@ const PostItem: React.FC<Props> = React.memo(({ post }) => {
         </div>
         {/* labels */}
         <div className="flex flex-wrap mt-3">
-          {post.labels.map((label: any, i: number) =>
-            <div
-              className="text-xs mr-2 my-1 px-3 py-1 rounded-full border"
-              key={`${post.id}-label${i}`}
-              style={{ borderColor: `#${label.color}`, background: `#${label.color}88`, color: isDark(`#${label.color}`) ? '#fff' : '#000' }}
-            >{label.name}</div>)}
+          {post.labels.map((label: any, i: number) => <Label key={`${post.id}-${label.name}`} label={label} />)}
         </div>
       </div>
       {/* comments button */}
