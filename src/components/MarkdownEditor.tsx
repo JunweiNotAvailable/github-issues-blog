@@ -108,17 +108,17 @@ const MarkdownEditor: React.FC<Props> = React.memo(({ source, setSource }) => {
       {/* header */}
       <div className="flex items-center justify-between">
         <div>
-          <button className={`${styles.mdEditorButton} mr-2`} style={{ color: mode === 'write' ? '#444' : '#888', background: mode === 'write' ? 'var(--color-secondary-hover)' : '' }} onClick={() => setMode('write')}>Write</button>
-          <button className={`${styles.mdEditorButton}`} style={{ color: mode === 'preview' ? '#444' : '#888', background: mode === 'preview' ? 'var(--color-secondary-hover)' : '' }} onClick={() => setMode('preview')}>Preview</button>
+          <button className={`${styles.mdEditorButton}${mode === 'write' ? ' bg-slate-100' : ''} mr-2 hover:bg-slate-100`} style={{ color: mode === 'write' ? '#444' : '#888' }} onClick={() => setMode('write')}>Write</button>
+          <button className={`${styles.mdEditorButton}${mode === 'preview' ? ' bg-slate-100' : ''} hover:bg-slate-100`} style={{ color: mode === 'preview' ? '#444' : '#888' }} onClick={() => setMode('preview')}>Preview</button>
         </div>
         {mode === 'write' && <div className={styles.actionBar}>
-          <button onClick={() => insertMarkdownFormat('heading')}><FontAwesomeIcon icon={faHeading} /></button>
-          <button onClick={() => insertMarkdownFormat('bold')}><FontAwesomeIcon icon={faBold} /></button>
-          <button onClick={() => insertMarkdownFormat('italic')}><FontAwesomeIcon icon={faItalic} /></button>
-          <button onClick={() => insertMarkdownFormat('code')}><FontAwesomeIcon icon={faCode} /></button>
-          <button onClick={() => insertMarkdownFormat('link')}><FontAwesomeIcon icon={faLink} /></button>
-          <button onClick={() => insertMarkdownFormat('ol')}><FontAwesomeIcon icon={faListOl} /></button>
-          <button onClick={() => insertMarkdownFormat('ul')}><FontAwesomeIcon icon={faListUl} /></button>
+          <button className="hover:bg-slate-100" onClick={() => insertMarkdownFormat('heading')}><FontAwesomeIcon icon={faHeading} /></button>
+          <button className="hover:bg-slate-100" onClick={() => insertMarkdownFormat('bold')}><FontAwesomeIcon icon={faBold} /></button>
+          <button className="hover:bg-slate-100" onClick={() => insertMarkdownFormat('italic')}><FontAwesomeIcon icon={faItalic} /></button>
+          <button className="hover:bg-slate-100" onClick={() => insertMarkdownFormat('code')}><FontAwesomeIcon icon={faCode} /></button>
+          <button className="hover:bg-slate-100" onClick={() => insertMarkdownFormat('link')}><FontAwesomeIcon icon={faLink} /></button>
+          <button className="hover:bg-slate-100" onClick={() => insertMarkdownFormat('ol')}><FontAwesomeIcon icon={faListOl} /></button>
+          <button className="hover:bg-slate-100" onClick={() => insertMarkdownFormat('ul')}><FontAwesomeIcon icon={faListUl} /></button>
         </div>}
       </div>
       {/* textarea / preview */}

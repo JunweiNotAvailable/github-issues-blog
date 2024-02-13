@@ -98,9 +98,6 @@ menu > * {
   padding: 6px 12px;
   font-size: 13px;
 }
-menu > *:hover {
-  background: var(--color-secondary-hover);
-}
 menu > * > :first-child {
   margin-right: 8px;
 }

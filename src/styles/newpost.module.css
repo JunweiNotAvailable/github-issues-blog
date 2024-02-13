@@ -77,6 +77,3 @@
 .disabled:hover {
   background: #d1d1d2;
 }
-.selected {
-  background: var(--color-secondary-hover);
-}

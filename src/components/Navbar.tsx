@@ -140,7 +140,7 @@ const Navbar = () => {
           {status === 'authenticated' ?
             <nav>
               {/* new post button */}
-              <Link className="w-7 h-7 rounded p-0 flex justify-center items-center" href={'/newpost'}><Image src={'/icon-plus.svg'} height={16} width={16} alt="" /></Link>
+              <Link className="w-7 h-7 rounded p-0 flex justify-center items-center hover:bg-slate-100" href={'/newpost'}><Image src={'/icon-plus.svg'} height={16} width={16} alt="" /></Link>
               {/* user button */}
               <div id="user-button" className="relative rounded-full overflow-hidden w-7 h-7 border" onClick={() => setIsMenuOpened(!isMenuOpened)}>
                 <Image src={session?.user?.image || ''} alt="" height={28} width={28} />
@@ -155,8 +155,8 @@ const Navbar = () => {
 
       {/* menu */}
       {<menu className={`${isMenuOpened ? '' : 'hidden '}fixed bg-white shadow py-1 border border-slate-200 rounded top-14 right-7 flex flex-col`}>
-        <Link href={`/${username}`}><Image src={'/icon-user.svg'} alt="" height={14} width={14} />Profile</Link>
-        <button onClick={() => signOut()}><Image src={'/icon-logout.svg'} alt="" height={14} width={14} />Log out</button>
+        <Link className="hover:bg-slate-100" href={`/${username}`}><Image src={'/icon-user.svg'} alt="" height={14} width={14} />Profile</Link>
+        <button className="hover:bg-slate-100" onClick={() => signOut()}><Image src={'/icon-logout.svg'} alt="" height={14} width={14} />Log out</button>
       </menu>}
 
     </>
