@@ -8,7 +8,7 @@ This is a blog app built with [Next.js](https://nextjs.org). Visit it here: http
 ## Overview
 1. [**What does it do?**](https://github.com/JunweiNotAvailable/issuesblog/#what-does-it-do)
 2. [**Quick start**](https://github.com/JunweiNotAvailable/issuesblog/#quick-start)
-   - [Public URL](https://issuesblog.vercel.app)
+   - [Public URL](https://github.com/JunweiNotAvailable/issuesblog/#public-url)
    - [On your computer](https://github.com/JunweiNotAvailable/issuesblog/#on-your-computer)
 3. [**App architecture**](https://github.com/JunweiNotAvailable/issuesblog/#app-architecture)
    - [layout.tsx](https://github.com/JunweiNotAvailable/issuesblog/#layouttsx)
