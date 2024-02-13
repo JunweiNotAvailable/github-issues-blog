@@ -6,19 +6,19 @@ This is a blog app built with [Next.js](https://nextjs.org). Visit it here: http
 <img height="324" alt="mobile" src="https://github.com/JunweiNotAvailable/issuesblog/assets/89463326/3fe0360f-79dd-461a-b538-0f15b3dddc08">
 
 ## Overview
-1. [**What does it do?**](https://github.com/JunweiNotAvailable/issuesblog/edit/master/README.md#what-does-it-do)
-2. [**Quick start**](https://github.com/JunweiNotAvailable/issuesblog/edit/master/README.md#quick-start)
+1. [**What does it do?**](https://github.com/JunweiNotAvailable/issuesblog/#what-does-it-do)
+2. [**Quick start**](https://github.com/JunweiNotAvailable/issuesblog/#quick-start)
    - [Public URL](https://issuesblog.vercel.app)
-   - [On your computer](https://github.com/JunweiNotAvailable/issuesblog/edit/master/README.md#on-your-computer)
-3. [**App architecture**](https://github.com/JunweiNotAvailable/issuesblog/edit/master/README.md#app-architecture)
-   - [layout.tsx]()
-   - [page.tsx]()
-   - [[username]/page.tsx]()
-   - [[username]/[repo]/[issue]/page.tsx]()
-   - [newpost/page.tsx]()
-   - [Components]()
-4. [**Improvement**](https://github.com/JunweiNotAvailable/issuesblog/edit/master/README.md#improvement)
-   - [Code management](https://github.com/JunweiNotAvailable/issuesblog/edit/master/README.md#code-management)
+   - [On your computer](https://github.com/JunweiNotAvailable/issuesblog/#on-your-computer)
+3. [**App architecture**](https://github.com/JunweiNotAvailable/issuesblog/#app-architecture)
+   - [layout.tsx](https://github.com/JunweiNotAvailable/issuesblog/#layouttsx)
+   - [page.tsx](https://github.com/JunweiNotAvailable/issuesblog/#pagetsx)
+   - [[username]/page.tsx](https://github.com/JunweiNotAvailable/issuesblog/#usernamepagetsx)
+   - [[username]/[repo]/[issue]/page.tsx](https://github.com/JunweiNotAvailable/issuesblog/#usernamerepoissuepagetsx)
+   - [newpost/page.tsx](https://github.com/JunweiNotAvailable/issuesblog/#newpostpagetsx)
+   - [Components](https://github.com/JunweiNotAvailable/issuesblog/#components)
+4. [**Improvement**](https://github.com/JunweiNotAvailable/issuesblog/#improvement)
+   - [Code management](https://github.com/JunweiNotAvailable/issuesblog/#code-management)
 
 ## What does it do?
 1. Allow users to browse other Github user's [Github issues](https://github.com/features/issues) as their posts
