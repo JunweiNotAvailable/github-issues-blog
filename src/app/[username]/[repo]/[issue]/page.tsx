@@ -153,7 +153,7 @@ const Post = () => {
             {(isMyPost && !isEditting) &&
               <div className="post-options-button relative" onClick={() => setIsOptionsOpened(!isOptionsOpened)}>
                 <button className="w-8 h-8 flex justify-center items-center text-md rounded-full hover:bg-slate-100"><FontAwesomeIcon icon={faEllipsis} /></button>
-                {isOptionsOpened && <div className="post-options flex flex-col border shadow absolute rounded top-8 right-0 w-36 box-border overflow-hidden">
+                {isOptionsOpened && <div className="post-options bg-white flex flex-col border shadow absolute rounded top-8 right-0 w-36 box-border overflow-hidden">
                   <button className="text-sm text-left py-2 px-3 text-gray-700 hover:bg-slate-100" onClick={() => {
                     setIsEditting(true);
                     setIsOptionsOpened(false);
