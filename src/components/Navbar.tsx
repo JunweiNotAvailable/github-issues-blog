@@ -58,6 +58,11 @@ const Navbar = () => {
     }
   }, [status]);
 
+  // register click event
+  useEffect(() => {
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, []);
 
   // click event handler
   const handleClick = (e: MouseEvent) => {
@@ -69,12 +74,6 @@ const Navbar = () => {
       setIsShowingResults(false);
     }
   };
-
-  // register click event
-  useEffect(() => {
-    document.addEventListener('click', handleClick);
-    return () => document.removeEventListener('click', handleClick);
-  }, []);
 
   // handle scroll on user result dropdown
   const handleScroll = (e: React.UIEvent) => {
@@ -138,25 +137,29 @@ const Navbar = () => {
         {/* nav menu / login button */}
         <div className="flex items-center">
           {status === 'authenticated' ?
+            // menu
             <nav>
-              {/* new post button */}
               <Link className="w-7 h-7 rounded p-0 flex justify-center items-center hover:bg-slate-100" href={'/newpost'}><Image src={'/icon-plus.svg'} height={16} width={16} alt="" /></Link>
-              {/* user button */}
               <div id="user-button" className="relative rounded-full overflow-hidden w-7 h-7 border" onClick={() => setIsMenuOpened(!isMenuOpened)}>
                 <Image src={session?.user?.image || ''} alt="" height={28} width={28} />
               </div>
             </nav>
             :
+            // login button
             status === 'unauthenticated' ?
               <button className="black-button ml-4 text-sm py-1 px-4" onClick={() => signIn('github')}>Log in</button>
-              : <div />}
+              :
+              <div />}
         </div>
       </div>
 
-      {/* menu */}
+      {/* popup menu */}
       {<menu className={`${isMenuOpened ? '' : 'hidden '}fixed bg-white shadow py-1 border border-slate-200 rounded top-14 right-7 flex flex-col`}>
         <Link className="hover:bg-slate-100" href={`/${username}`}><Image src={'/icon-user.svg'} alt="" height={14} width={14} />Profile</Link>
-        <button className="hover:bg-slate-100" onClick={() => signOut()}><Image src={'/icon-logout.svg'} alt="" height={14} width={14} />Log out</button>
+        <button className="hover:bg-slate-100" onClick={async () => {
+          await signOut();
+          router.push('/');
+        }}><Image src={'/icon-logout.svg'} alt="" height={14} width={14} />Log out</button>
       </menu>}
 
     </>

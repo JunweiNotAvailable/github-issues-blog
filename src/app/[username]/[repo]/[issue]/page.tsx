@@ -3,7 +3,7 @@
 import styles from '../../../../styles/post.module.css';
 import CommentItem from "@/components/CommentItem";
 import UIWMarkdownEditor from '@uiw/react-markdown-editor';
-import { closeIssue, getIssue, getUser, getUserFromUrl, updateIssue } from "@/utils/github";
+import { closeIssue, getIssue, getOwnerAndName, getUser, getUserFromUrl, updateIssue } from "@/utils/github";
 import { faComment } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
@@ -55,7 +55,7 @@ const Post = () => {
       setTempTitle(issueData.title);
       setTempBody(issueData.body);
       setTempSelectedLabels(issueData.labels);
-      const ownerData = await getUser(issueData.user.login);
+      const ownerData = await getUser(getOwnerAndName(issueData.repository_url)?.owner as string);
       setOwner(ownerData);
     })();
   }, []);

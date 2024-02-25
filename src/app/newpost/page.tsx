@@ -70,7 +70,7 @@ const NewPost = () => {
   // submit post -> create issue
   const submitPost = async () => {
     setIsPosting(true);
-    await postIssue(username, repoInput, title, body, selectedLabels);
+    await postIssue(username, repoInput, title, body, selectedLabels, '');
     setIsPosting(false);
     router.push(`/${username}`);
   }

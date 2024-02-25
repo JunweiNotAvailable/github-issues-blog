@@ -19,7 +19,7 @@ const SearchUser: React.FC<Props> = React.memo(({ user, setIsShowingResults }) =
       <div className={`w-8 h-8 overflow-hidden rounded-full border`}>
         <Image className="w-full h-full overflow-hidden rounded-full" alt="" src={user.avatar_url} width={512} height={512} />
       </div>
-      <div className="text-sm ml-2 font-bold flex-1 min-w-0 overflow-hidden text-ellipsis">{user?.login}</div>
+      <div className="text-sm ml-2 flex-1 min-w-0 overflow-hidden text-ellipsis">{user?.login}</div>
     </div>
   )
 })

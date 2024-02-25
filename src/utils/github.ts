@@ -29,6 +29,12 @@ export const getUserFromUrl = async (url: string) => {
   }
 }
 
+// Get repo owner and repo name from given url
+export const getOwnerAndName = (url: string): { owner: string; name: string } | null => {
+  const match = url.match(/https:\/\/api\.github\.com\/repos\/([^\/]+)\/([^\/]+)/);
+  return match ? { owner: match[1], name: match[2] } : null;
+}
+
 // get user's repos
 export const getUserRepos = async (username: string) => {
   try {
@@ -74,7 +80,7 @@ export const getLabelCount = async (label: string) => {
 }
 
 // create an issue on github
-export const postIssue = async (username: string, repo: string, title: string, body: string, labels: { name: string, color: string }[]) => {
+export const postIssue = async (username: string, repo: string, title: string, body: string, labels: { name: string, color: string }[], userToken: string) => {
   try {
     const response = await axios.post(`https://api.github.com/repos/${username}/${repo}/issues`, { title, body, labels }, {
       headers: {
@@ -82,6 +88,7 @@ export const postIssue = async (username: string, repo: string, title: string, b
         'Content-Type': 'application/json',
       },
     });
+    
   } catch (error) {
     console.error('Error creating issue:', error);
     throw error;
@@ -120,27 +127,10 @@ export const closeIssue = async (username: string, repo: string, issueId: string
   }
 }
 
-// get issues (any)
-export const getIssues = async (page: number) => {
-  try {
-    const minDate = new Date();
-    minDate.setHours(minDate.getHours() - page);
-    const data = (await axios.get(`https://api.github.com/search/issues?q=is:open+created:>${minDate.toISOString()}&sort=random&order=desc&per_page=10`, {
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-      }
-    })).data;
-    return data.items;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 // get given user's issues
 export const getUserIssues = async (username: string, page: number) => {
   try {
-    const data = (await axios.get(`https://api.github.com/search/issues?q=author:${username}+is:open&sort=updated&order=desc&per_page=10&page=${page}`, {
+    const data = (await axios.get(`https://api.github.com/search/issues?q=user:${username}+is:open&sort=updated&order=desc&per_page=10&page=${page}`, {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
