@@ -11,7 +11,7 @@ export const getUserId = (url: string) => {
 // return user data from given username
 export const getUser = async (username: string) => {
   try {
-    const user = await axios.get(`https://api.github.com/users/${username}`);
+    const user = await axios.get(`https://api.github.com/users/${username}`, { headers: { Authorization: `Bearer ${accessToken}` } });
     return user.data;
   } catch (error) {
     console.log(error);
@@ -22,7 +22,7 @@ export const getUser = async (username: string) => {
 export const getUserFromUrl = async (url: string) => {
   try {
     const userId = getUserId(url);
-    const user = await axios.get(`https://api.github.com/user/${userId}`);
+    const user = await axios.get(`https://api.github.com/user/${userId}`, { headers: { Authorization: `Bearer ${accessToken}` } });
     return user.data;
   } catch (error) {
     console.log(error);
@@ -80,7 +80,7 @@ export const getLabelCount = async (label: string) => {
 }
 
 // create an issue on github
-export const postIssue = async (username: string, repo: string, title: string, body: string, labels: { name: string, color: string }[], userToken: string) => {
+export const postIssue = async (username: string, repo: string, title: string, body: string, labels: { name: string, color: string }[]) => {
   try {
     const response = await axios.post(`https://api.github.com/repos/${username}/${repo}/issues`, { title, body, labels }, {
       headers: {
