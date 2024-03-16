@@ -99,6 +99,10 @@ const PostClient: React.FC<Props> = ({ owner, authUser, post, comments }) => {
     <>
       <div className="flex justify-center pb-16 px-4">
         <div className="w-full" style={{ maxWidth: 720 }}>
+          {isEditting && <div className={`mt-4 ${isEditting ? 'flex' : 'hidden'} justify-end`}>
+            <button className="blue-button rounded px-4 py-1 text-sm font-bold shadow-sm" onClick={savePost}>Save</button>
+            <button className="rounded px-4 py-1 text-sm shadow-sm text-gray-600 border-gray-300 border ml-2" onClick={() => setIsEditting(false)}>Cancel</button>
+          </div>}
           <div className='w-full flex justify-between items-center my-4'>
             {/* title */}
             {isEditting ? <div className={styles.inputGroup}><input placeholder="Title" value={tempTitle} onInput={(e: React.ChangeEvent<HTMLInputElement>) => setTempTitle(e.target.value)} /></div>
@@ -122,8 +126,8 @@ const PostClient: React.FC<Props> = ({ owner, authUser, post, comments }) => {
           {/* post */}
           <div className="mb-4">
             {/* picture, name and time */}
-            <div className={`flex justify-between items-start cursor-pointer`} onClick={() => router.push(`/${owner.login}`)}>
-              <div className="flex items-center">
+            <div className={`justify-between items-start ${isEditting ? 'hidden' : 'flex'}`}>
+              <div className="flex items-center cursor-pointer" onClick={() => router.push(`/${owner.login}`)}>
                 <div className={`w-10 h-10 overflow-hidden rounded-full border`}>
                   <Image className="w-full h-full overflow-hidden rounded-full" alt="" src={owner.avatar_url} width={512} height={512} />
                 </div>
@@ -144,9 +148,9 @@ const PostClient: React.FC<Props> = ({ owner, authUser, post, comments }) => {
             <div className="mt-8">
               {/* body */}
               {isEditting ?
-                <div className="mt-2 flex">
+                <div className="mt-2 flex md:flex-row flex-col">
                   <div className={`${styles.inputGroup} flex-1`}><MarkdownEditor source={tempBody} setSource={setTempBody} /></div>
-                  <div className="w-40 ml-8 box-border">
+                  <div className="w-full md:w-40 mt-4 md:mt-0 md:ml-8 box-border">
                     {/* selected */}
                     <div className="flex flex-wrap">
                       {tempSelectedLabels.map((label, i) => <div className="flex rounded-full items-center m-1 text-xs cursor-default border py-1 px-2" key={`selected-${i}`}
