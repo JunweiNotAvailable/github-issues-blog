@@ -19,7 +19,6 @@ This is a blog app built with [Next.js](https://nextjs.org). Visit it here: http
    - [Components](https://github.com/JunweiNotAvailable/issuesblog/#components)
 4. [**Server Components**](https://github.com/JunweiNotAvailable/issuesblog/#server-components)
    - [page.tsx (Server)](https://github.com/JunweiNotAvailable/issuesblog/#pagetsx-server)
-   - [page.client.tsx (Client)](https://github.com/JunweiNotAvailable/issuesblog/#pageclienttsx-client)
 6. [**Improvement**](https://github.com/JunweiNotAvailable/issuesblog/#improvement)
    - [Code management](https://github.com/JunweiNotAvailable/issuesblog/#code-management)
 
@@ -89,8 +88,8 @@ They were wrapped by `React.memo` to prevent re-rendering.
   - The comment item on the post contains the sender's info and comment body
 
 ## Server Components
-### page.tsx (Server)
-Use server components to implement **server-side rendering**, and pass the fetched data to the client.
+### page.server.tsx (Server)
+- Use server components to get the data, and pass the fetched data to the client.
 ```jsx
 const App = async () => {
    // Fetch data in the server component
@@ -98,7 +97,11 @@ const App = async () => {
       const response = await fetch('...');
       const data = await response.json();
       if (data) {
-         return <AppClient data={data} />
+         return (
+            <div className="app">
+               ...
+            </div>
+         )
       }
    } catch (error) {
       console.log('Failed fetching data:', error);
@@ -112,23 +115,9 @@ const App = async () => {
 export default App;
 ```
 
-### page.client.tsx (Client)
-Pass the data to the client through props.
-```jsx
-'use client'
-
-// Get the data from server component using props
-const AppClient = ({ data }) => {
-   return (
-      <div>{data}</div>
-   )
-}
-
-export default AppClient;
-```
-
 ## Improvement
 
 ### Code management
-1. Although some elements were created as components, there are much more elements that can be made as components to improve  **efficiency**, **reusability** and **readability**.
-2. The code and comments should be more clear and understandable for collaboration or future use.
+1. Improve **server-side rendering** - I used server components to fetch data and pass the data to client components, which didn't improve SEO. A better approach is to render the elements in server components and use client components when using client side actions like `useEffect`, `useState`, etc.
+2. Although some elements were created as components, there are much more elements that can be made as components to improve  **efficiency**, **reusability** and **readability**.
+3. The code and comments should be more clear and understandable for collaboration or future use.
