@@ -4,10 +4,11 @@ import styles from '../../styles/profile.module.css';
 import PostItem from "@/components/PostItem";
 import Spinner from "@/components/Spinner";
 import { getUser, getUserFromUrl, getUserIssues } from "@/utils/github";
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Profile = () => {
 
@@ -125,7 +126,7 @@ const Profile = () => {
       :
 
       !isGettingUser && <div className="w-full my-32 flex flex-col items-center justify-center">
-        <div className="text-gray-300 text-lg font-bold">Cannot find the user :(</div>
+        <div className="font-bold">Cannot find the user :(</div>
         <button className="underline my-2 hover:bg-white" onClick={() => router.push('/')}>Go to Home</button>
       </div>
   );

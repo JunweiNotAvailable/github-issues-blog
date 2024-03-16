@@ -1,43 +1,36 @@
-"use client"
-
-import Spinner from "@/components/Spinner";
+import LoginButton from "@/components/LoginButton";
 import { getUserFromUrl } from "@/utils/github";
-import { signIn, useSession } from "next-auth/react"
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { getServerSession } from "next-auth/next";
+import { Fragment } from "react";
 
 
-export default function Home() {
+export default async function Home() {
 
-  const router = useRouter();
-  const { data: session, status } = useSession();
+  const session = await getServerSession();
 
-  // handle status change
-  useEffect(() => {
-    if (status === 'authenticated') {
-      (async () => {
-        const username = (await getUserFromUrl(session.user?.image as string)).login;
-        router.replace(`/${username}`);
-      })();
+  if (session) {
+    try {
+      const username = (await getUserFromUrl(session.user?.image as string)).login;
+      // Perform server-side redirect
+      return (
+        <Fragment>
+          <meta httpEquiv="refresh" content={`0; url=/${username}`} />
+        </Fragment>
+      );
+    } catch (error) {
+      console.error('Error fetching user data:', error);
     }
-  }, [status]);
+  }
 
   return (
-    status === 'unauthenticated' ?
+    !session ?
     <div className='flex flex-1 items-center justify-center flex-col'>      
       <div className="font-bold text-3xl text-center">Create content with Github issues</div>
       <div></div>
-      <button className="black-button text-lg px-6 py-1 mt-4" onClick={() => signIn('github')}>Log in</button>
+      <LoginButton />
     </div>
     :
-    status === 'loading' ?
-    <div className='flex flex-1 items-center justify-center flex-col'>
-      <div className="flex items-center">
-        <Spinner />
-        <div className="ml-4 font-bold text-gray-300">Loading...</div>
-      </div>
-    </div>
-    :
+
     <></>
   )
 }

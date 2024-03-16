@@ -19,7 +19,7 @@ export const getUser = async (username: string) => {
 }
 
 // return user data from the image url
-export const getUserFromUrl = async (url: string) => {
+export const getUserFromUrl = async (url: string, ssr?: boolean) => {
   try {
     const userId = getUserId(url);
     const user = await axios.get(`https://api.github.com/user/${userId}`, { headers: { Authorization: `Bearer ${accessToken}` } });
