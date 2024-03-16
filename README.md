@@ -20,6 +20,7 @@ This is a blog app built with [Next.js](https://nextjs.org). Visit it here: http
 4. [**Server Components**](https://github.com/JunweiNotAvailable/issuesblog/#server-components)
    - [page.tsx (Server)](https://github.com/JunweiNotAvailable/issuesblog/#pagetsx-server)
 6. [**Improvement**](https://github.com/JunweiNotAvailable/issuesblog/#improvement)
+   - [Server-side rendering](https://github.com/JunweiNotAvailable/issuesblog/#server-side-rendering)
    - [Code management](https://github.com/JunweiNotAvailable/issuesblog/#code-management)
 
 ## What does it do?
