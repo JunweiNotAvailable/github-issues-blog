@@ -117,7 +117,9 @@ export default App;
 
 ## Improvement
 
+### Server-side rendering
+1. I used server components to fetch data and pass the data to client components, which didn't improve SEO. A better approach is to render the elements in server components and use client components when using client side actions like `useEffect`, `useState`, etc.
+
 ### Code management
-1. Improve **server-side rendering** - I used server components to fetch data and pass the data to client components, which didn't improve SEO. A better approach is to render the elements in server components and use client components when using client side actions like `useEffect`, `useState`, etc.
 2. Although some elements were created as components, there are much more elements that can be made as components to improve  **efficiency**, **reusability** and **readability**.
 3. The code and comments should be more clear and understandable for collaboration or future use.
