@@ -17,7 +17,10 @@ This is a blog app built with [Next.js](https://nextjs.org). Visit it here: http
    - [[username]/[repo]/[issue]/page.tsx](https://github.com/JunweiNotAvailable/issuesblog/#usernamerepoissuepagetsx)
    - [newpost/page.tsx](https://github.com/JunweiNotAvailable/issuesblog/#newpostpagetsx)
    - [Components](https://github.com/JunweiNotAvailable/issuesblog/#components)
-4. [**Improvement**](https://github.com/JunweiNotAvailable/issuesblog/#improvement)
+4. [**Server Components**](https://github.com/JunweiNotAvailable/issuesblog/#server-components)
+   - [page.tsx (Server)](https://github.com/JunweiNotAvailable/issuesblog/#pagetsx-server)
+   - [page.client.tsx (Client)](https://github.com/JunweiNotAvailable/issuesblog/#pageclienttsx-client)
+6. [**Improvement**](https://github.com/JunweiNotAvailable/issuesblog/#improvement)
    - [Code management](https://github.com/JunweiNotAvailable/issuesblog/#code-management)
 
 ## What does it do?
@@ -40,7 +43,7 @@ To start this project on your computer:
 ### [layout.tsx](https://github.com/JunweiNotAvailable/issuesblog/blob/master/src/app/layout.tsx) 
 1. Add [Navbar](https://github.com/JunweiNotAvailable/issuesblog/tree/master/src/components/Navbar.tsx) to every page
 2. Wrap the app with [AuthProvider](https://github.com/JunweiNotAvailable/issuesblog/blob/master/src/app/provider.tsx)
-```
+```jsx
 <NextAuthProvider>
   <div className='flex flex-col min-h-full'>
     <Navbar />
@@ -84,6 +87,45 @@ They were wrapped by `React.memo` to prevent re-rendering.
   - Contains user, post title and post body
 - [CommentItem.tsx]()
   - The comment item on the post contains the sender's info and comment body
+
+## Server Components
+### page.tsx (Server)
+Use server components to implement **server-side rendering**, and pass the fetched data to the client.
+```jsx
+const App = async () => {
+   // Fetch data in the server component
+   try {
+      const response = await fetch('...');
+      const data = await response.json();
+      if (data) {
+         return <AppClient data={data} />
+      }
+   } catch (error) {
+      console.log('Failed fetching data:', error);
+   }
+
+   return (
+      <div>Data not found</div>
+   )
+}
+
+export default App;
+```
+
+### page.client.tsx (Client)
+Pass the data to the client through props.
+```jsx
+'use client'
+
+// Get the data from server component using props
+const AppClient = ({ data }) => {
+   return (
+      <div>{data}</div>
+   )
+}
+
+export default AppClient;
+```
 
 ## Improvement
 
