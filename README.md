@@ -17,7 +17,10 @@ This is a blog app built with [Next.js](https://nextjs.org). Visit it here: http
    - [[username]/[repo]/[issue]/page.tsx](https://github.com/JunweiNotAvailable/issuesblog/#usernamerepoissuepagetsx)
    - [newpost/page.tsx](https://github.com/JunweiNotAvailable/issuesblog/#newpostpagetsx)
    - [Components](https://github.com/JunweiNotAvailable/issuesblog/#components)
-4. [**Improvement**](https://github.com/JunweiNotAvailable/issuesblog/#improvement)
+4. [**Server Components**](https://github.com/JunweiNotAvailable/issuesblog/#server-components)
+   - [page.tsx (Server)](https://github.com/JunweiNotAvailable/issuesblog/#pagetsx-server)
+6. [**Improvement**](https://github.com/JunweiNotAvailable/issuesblog/#improvement)
+   - [Server-side rendering](https://github.com/JunweiNotAvailable/issuesblog/#server-side-rendering)
    - [Code management](https://github.com/JunweiNotAvailable/issuesblog/#code-management)
 
 ## What does it do?
@@ -40,7 +43,7 @@ To start this project on your computer:
 ### [layout.tsx](https://github.com/JunweiNotAvailable/issuesblog/blob/master/src/app/layout.tsx) 
 1. Add [Navbar](https://github.com/JunweiNotAvailable/issuesblog/tree/master/src/components/Navbar.tsx) to every page
 2. Wrap the app with [AuthProvider](https://github.com/JunweiNotAvailable/issuesblog/blob/master/src/app/provider.tsx)
-```
+```jsx
 <NextAuthProvider>
   <div className='flex flex-col min-h-full'>
     <Navbar />
@@ -85,8 +88,39 @@ They were wrapped by `React.memo` to prevent re-rendering.
 - [CommentItem.tsx]()
   - The comment item on the post contains the sender's info and comment body
 
+## Server Components
+### page.server.tsx (Server)
+- Use server components to get the data, and pass the fetched data to the client.
+```jsx
+const App = async () => {
+   // Fetch data in the server component
+   try {
+      const response = await fetch('...');
+      const data = await response.json();
+      if (data) {
+         return (
+            <div className="app">
+               ...
+            </div>
+         )
+      }
+   } catch (error) {
+      console.log('Failed fetching data:', error);
+   }
+
+   return (
+      <div>Data not found</div>
+   )
+}
+
+export default App;
+```
+
 ## Improvement
 
+### Server-side rendering
+1. I used server components to fetch data and pass the data to client components, which didn't improve SEO. A better approach is to render the elements in server components and use client components when using client side actions like `useEffect`, `useState`, etc.
+
 ### Code management
-1. Although some elements were created as components, there are much more elements that can be made as components to improve  **efficiency**, **reusability** and **readability**.
-2. The code and comments should be more clear and understandable for collaboration or future use.
+2. Although some elements were created as components, there are much more elements that can be made as components to improve  **efficiency**, **reusability** and **readability**.
+3. The code and comments should be more clear and understandable for collaboration or future use.
