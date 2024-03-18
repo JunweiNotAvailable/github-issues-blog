@@ -112,7 +112,7 @@ const Navbar = () => {
         {/* logo */}
         <Link className="flex items-center" href={'/'}>
           <Image src={'/logo.png'} alt="" height={24} width={24} unoptimized={true} />
-          <div className="hidden md:block font-logo text-lg ml-2">IssuesBlog</div>
+          <div className="hidden md:block font-logo text-lg ml-2">Blog</div>
         </Link>
         {/* search input */}
         <div className="flex-1 relative ml-2 md:ml-0 w-1/2" style={{ maxWidth: 280 }}>
@@ -139,7 +139,7 @@ const Navbar = () => {
           {status === 'authenticated' ?
             // menu
             <nav>
-              <Link className="w-7 h-7 rounded p-0 flex justify-center items-center hover:bg-slate-100" href={'/newpost'}><Image src={'/icon-plus.svg'} height={16} width={16} alt="" /></Link>
+              <Link className="w-7 h-7 rounded p-0 flex justify-center items-center hover:bg-slate-100" href={'/newpost'}><Image src={'/icon-plus.svg'} height={14} width={14} alt="" /></Link>
               <div id="user-button" className="relative rounded-full overflow-hidden w-7 h-7 border" onClick={() => setIsMenuOpened(!isMenuOpened)}>
                 <Image src={session?.user?.image || ''} alt="" height={28} width={28} />
               </div>

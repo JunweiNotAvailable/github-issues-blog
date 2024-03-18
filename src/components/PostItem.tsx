@@ -1,4 +1,4 @@
-import { isDark } from "@/utils/functions";
+import { getTimeFromNow, isDark } from "@/utils/functions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UiwMarkdownEditor from "@uiw/react-markdown-editor";
 import styles from '../styles/post.module.css';
@@ -23,7 +23,10 @@ const PostItem: React.FC<Props> = React.memo(({ post }) => {
       {/* title, body & labels */}
       <div className="mt-1 px-4">
         {/* title */}
-        <div className="font-semibold text-xl">{post.title}</div>
+        <div className="flex justify-between items-start">
+          <div className="font-semibold text-lg ">{post.title}</div>
+          <div className="text-xs text-gray-400">{getTimeFromNow(post.updated_at)}</div>
+        </div>
         {/* body */}
         <div className="mt-2">
           <UiwMarkdownEditor.Markdown className={styles.markdownContent} source={post.body} />

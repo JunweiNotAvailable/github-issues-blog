@@ -10,7 +10,7 @@ config.autoAddCss = false;
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'IssuesBlog',
+  title: 'Blog',
   description: 'Create content with Github issues',
 }
 

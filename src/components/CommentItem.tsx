@@ -1,3 +1,5 @@
+'use client'
+
 import { getTimeFromNow } from "@/utils/functions";
 import { getUser } from "@/utils/github";
 import MarkdownEditor from "@uiw/react-markdown-editor";

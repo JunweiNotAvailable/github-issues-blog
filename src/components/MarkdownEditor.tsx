@@ -104,7 +104,7 @@ const MarkdownEditor: React.FC<Props> = React.memo(({ source, setSource }) => {
   }
 
   return (
-    <div className="flex-1 flex flex-col border rounded-lg min-h-72 p-2" style={{ borderColor: '#dadbdc' }}>
+    <div className="flex-1 flex flex-col border rounded-lg min-h-72 p-2 w-full" style={{ borderColor: '#dadbdc' }}>
       {/* header */}
       <div className="flex items-center justify-between">
         <div>

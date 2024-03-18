@@ -28,7 +28,8 @@
 
 .inputGroup {
   display: flex;
-  flex-direction: column;
+  width: 100%;
+  align-items: center;
   margin-top: 8px;
 }
 .inputGroup input, .inputGroup textarea {
@@ -38,6 +39,8 @@
   outline: 2px solid transparent;
   font-size: 14px;
   transition: outline .2s;
+  box-sizing: border-box;
+  min-width: 0;
 }
 .input {
   outline: 2px solid transparent;
