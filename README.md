@@ -2,8 +2,8 @@
 
 This is a blog app built with [Next.js 13](https://nextjs.org). Visit it here: https://issuesblog.vercel.app
 
-<img height="324" alt="desktop" src="https://github.com/JunweiNotAvailable/issuesblog/assets/89463326/b75fa64a-651a-4ac5-bc90-5dbd2f442d1b">
-<img height="324" alt="mobile" src="https://github.com/JunweiNotAvailable/issuesblog/assets/89463326/3fe0360f-79dd-461a-b538-0f15b3dddc08">
+<img height="324" alt="desktop" src="https://github.com/JunweiNotAvailable/nextjs-blog/assets/89463326/b6d21dc0-ff34-4597-a3c8-124df647f68b">
+<img height="324" alt="mobile" src="https://github.com/JunweiNotAvailable/nextjs-blog/assets/89463326/cde75723-bc80-497d-9036-f36ed7b632ba">
 
 ## Overview
 1. [**What does it do?**](https://github.com/JunweiNotAvailable/issuesblog/#what-does-it-do)
