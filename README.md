@@ -120,7 +120,7 @@ export default App;
 ```
 
 ### Client Components
-A component in Next.js 13 is regarded as server components by default, add `'use client'` on the top will make it a **client component**.
+A component in Next.js 13 is regarded as a server component by default, add `'use client'` on the top will make it a **client component**.
 ```jsx
 'use client'
 
