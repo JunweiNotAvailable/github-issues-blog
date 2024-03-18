@@ -1,6 +1,6 @@
-# IssuesBlog
+# Github Issues Blog
 
-This is a blog app built with [Next.js](https://nextjs.org). Visit it here: https://issuesblog.vercel.app
+This is a blog app built with [Next.js 13](https://nextjs.org). Visit it here: https://issuesblog.vercel.app
 
 <img height="324" alt="desktop" src="https://github.com/JunweiNotAvailable/issuesblog/assets/89463326/b75fa64a-651a-4ac5-bc90-5dbd2f442d1b">
 <img height="324" alt="mobile" src="https://github.com/JunweiNotAvailable/issuesblog/assets/89463326/3fe0360f-79dd-461a-b538-0f15b3dddc08">
@@ -19,6 +19,7 @@ This is a blog app built with [Next.js](https://nextjs.org). Visit it here: http
    - [Components](https://github.com/JunweiNotAvailable/issuesblog/#components)
 4. [**Server Components**](https://github.com/JunweiNotAvailable/issuesblog/#server-components)
    - [page.tsx (Server)](https://github.com/JunweiNotAvailable/issuesblog/#pagetsx-server)
+   - [Client Components](https://github.com/JunweiNotAvailable/issuesblog/#client-components)
 6. [**Improvement**](https://github.com/JunweiNotAvailable/issuesblog/#improvement)
    - [Server-side rendering](https://github.com/JunweiNotAvailable/issuesblog/#server-side-rendering)
    - [Code management](https://github.com/JunweiNotAvailable/issuesblog/#code-management)
@@ -89,8 +90,8 @@ They were wrapped by `React.memo` to prevent re-rendering.
   - The comment item on the post contains the sender's info and comment body
 
 ## Server Components
-### page.server.tsx (Server)
-- Use server components to get the data, and pass the fetched data to the client.
+### page.tsx (Server)
+Use server components to **fetch data**, **render HTML**. And **use client components when client actions are need**, such as `useEffect`, `useState`, etc.
 ```jsx
 const App = async () => {
    // Fetch data in the server component
@@ -101,6 +102,8 @@ const App = async () => {
          return (
             <div className="app">
                ...
+               {/* Use client component to handle client events */}
+               <LoginButton />
             </div>
          )
       }
@@ -114,6 +117,25 @@ const App = async () => {
 }
 
 export default App;
+```
+
+### Client Components
+A component in Next.js 13 is regarded as server components by default, add `'use client'` on the top will make it a **client component**.
+```jsx
+'use client'
+
+const LoginButton = () => {
+
+   const handleClick = async () => {
+      await login();
+   }
+
+   return (
+      <button onClick={handleClick}>Login</button>
+   )
+}
+
+export default LoginButton;
 ```
 
 ## Improvement
