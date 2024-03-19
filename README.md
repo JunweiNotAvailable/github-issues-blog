@@ -141,8 +141,7 @@ export default LoginButton;
 ## Improvement
 
 ### Server-side rendering
-1. I used server components to fetch data and pass the data to client components, which didn't improve SEO. A better approach is to render the elements in server components and use client components when using client side actions like `useEffect`, `useState`, etc.
+While I put some HTML in the server components, there are much code still rendered on the client side. To optimize it, the HTML should be rendered on the server side as much as possible.
 
 ### Code management
-2. Although some elements were created as components, there are much more elements that can be made as components to improve  **efficiency**, **reusability** and **readability**.
-3. The code and comments should be more clear and understandable for collaboration or future use.
+Although some elements were created as components, I believe there are more elements that can be wrapped as components to improve efficiency, reusability and readability.
