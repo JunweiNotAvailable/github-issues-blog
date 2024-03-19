@@ -1,9 +1,9 @@
-# IssuesBlog
+# Github Issues Blog
 
-This is a blog app built with [Next.js](https://nextjs.org). Visit it here: https://issuesblog.vercel.app
+This is a blog app built with [Next.js 14](https://nextjs.org). Visit it here: https://issuesblog.vercel.app
 
-<img height="324" alt="desktop" src="https://github.com/JunweiNotAvailable/issuesblog/assets/89463326/b75fa64a-651a-4ac5-bc90-5dbd2f442d1b">
-<img height="324" alt="mobile" src="https://github.com/JunweiNotAvailable/issuesblog/assets/89463326/3fe0360f-79dd-461a-b538-0f15b3dddc08">
+<img height="324" alt="desktop" src="https://github.com/JunweiNotAvailable/nextjs-blog/assets/89463326/b6d21dc0-ff34-4597-a3c8-124df647f68b">
+<img height="324" alt="mobile" src="https://github.com/JunweiNotAvailable/github-issues-blog/assets/89463326/688a82cf-156c-41b8-971e-a240e38fc41f">
 
 ## Overview
 1. [**What does it do?**](https://github.com/JunweiNotAvailable/issuesblog/#what-does-it-do)
@@ -19,6 +19,7 @@ This is a blog app built with [Next.js](https://nextjs.org). Visit it here: http
    - [Components](https://github.com/JunweiNotAvailable/issuesblog/#components)
 4. [**Server Components**](https://github.com/JunweiNotAvailable/issuesblog/#server-components)
    - [page.tsx (Server)](https://github.com/JunweiNotAvailable/issuesblog/#pagetsx-server)
+   - [Client Components](https://github.com/JunweiNotAvailable/issuesblog/#client-components)
 6. [**Improvement**](https://github.com/JunweiNotAvailable/issuesblog/#improvement)
    - [Server-side rendering](https://github.com/JunweiNotAvailable/issuesblog/#server-side-rendering)
    - [Code management](https://github.com/JunweiNotAvailable/issuesblog/#code-management)
@@ -89,8 +90,8 @@ They were wrapped by `React.memo` to prevent re-rendering.
   - The comment item on the post contains the sender's info and comment body
 
 ## Server Components
-### page.server.tsx (Server)
-- Use server components to get the data, and pass the fetched data to the client.
+### page.tsx (Server)
+Use server components to **fetch data**, **render HTML**. And **use client components when client actions are need**, such as `useEffect`, `useState`, etc.
 ```jsx
 const App = async () => {
    // Fetch data in the server component
@@ -101,6 +102,8 @@ const App = async () => {
          return (
             <div className="app">
                ...
+               {/* Use client component to handle client events */}
+               <LoginButton />
             </div>
          )
       }
@@ -116,11 +119,29 @@ const App = async () => {
 export default App;
 ```
 
+### Client Components
+A component in Next.js above the version 13 is regarded as a server component by default, add `'use client'` on the top will make it a **client component**.
+```jsx
+'use client'
+
+const LoginButton = () => {
+
+   const handleClick = async () => {
+      await login();
+   }
+
+   return (
+      <button onClick={handleClick}>Login</button>
+   )
+}
+
+export default LoginButton;
+```
+
 ## Improvement
 
 ### Server-side rendering
-1. I used server components to fetch data and pass the data to client components, which didn't improve SEO. A better approach is to render the elements in server components and use client components when using client side actions like `useEffect`, `useState`, etc.
+While I put some HTML in the server components, there are much code still rendered on the client side. To optimize it, the HTML should be rendered on the server side as much as possible.
 
 ### Code management
-2. Although some elements were created as components, there are much more elements that can be made as components to improve  **efficiency**, **reusability** and **readability**.
-3. The code and comments should be more clear and understandable for collaboration or future use.
+Although some elements were created as components, I believe there are more elements that can be wrapped as components to improve efficiency, reusability and readability.
