@@ -3,7 +3,7 @@
 This is a blog app built with [Next.js 14](https://nextjs.org). Visit it here: https://issuesblog.vercel.app
 
 <img height="324" alt="desktop" src="https://github.com/JunweiNotAvailable/nextjs-blog/assets/89463326/b6d21dc0-ff34-4597-a3c8-124df647f68b">
-<img height="324" alt="mobile" src="https://github.com/JunweiNotAvailable/nextjs-blog/assets/89463326/cde75723-bc80-497d-9036-f36ed7b632ba">
+<img height="324" alt="mobile" src="https://github.com/JunweiNotAvailable/github-issues-blog/assets/89463326/688a82cf-156c-41b8-971e-a240e38fc41f">
 
 ## Overview
 1. [**What does it do?**](https://github.com/JunweiNotAvailable/issuesblog/#what-does-it-do)
