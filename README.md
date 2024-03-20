@@ -140,6 +140,9 @@ export default LoginButton;
 
 ## Improvement
 
+### Types
+When handling data from Github such as users, repos, issues, I gave them type `any`. A better way is to give them types or interfaces.
+
 ### Server-side rendering
 While I put some HTML in the server components, there are much code still rendered on the client side. To optimize it, the HTML should be rendered on the server side as much as possible.
 
