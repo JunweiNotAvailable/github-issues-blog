@@ -10,10 +10,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { isDark } from "@/utils/functions";
 import Spinner from "@/components/Spinner";
+import { Post } from "@/utils/interfaces";
 
 interface Props {
   username: string
-  repos: any[]
+  repos: Post[]
 }
 
 const NewPostClient: React.FC<Props> = ({ username, repos }) => {

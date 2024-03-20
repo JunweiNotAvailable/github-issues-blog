@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 import Spinner from "./Spinner";
 import SearchUser from "./SearchUser";
+import { User } from "@/utils/interfaces";
 
 const Navbar = () => {
 
@@ -18,7 +19,7 @@ const Navbar = () => {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   // search users data
-  const [resultUsers, setResultUsers] = useState<any[]>([]);
+  const [resultUsers, setResultUsers] = useState<User[]>([]);
   const [page, setPage] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
   const [isLoadingData, setIsLoadingData] = useState(false);

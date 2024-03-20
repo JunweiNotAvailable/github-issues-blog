@@ -8,6 +8,7 @@ import CommentItem from '@/components/CommentItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-regular-svg-icons';
 import PostBody from './PostBody';
+import { Comment } from '@/utils/interfaces';
 
 const Post = async ({ params }: any) => {
 
@@ -23,7 +24,7 @@ const Post = async ({ params }: any) => {
       authUser = await getUser(name);
     }
     const commentsFetchData = (await axios.get(`${post.comments_url}`)).data;
-    const comments = commentsFetchData.sort((a: any, b: any) => a.updated_at < b.updated_at ? 1 : -1);
+    const comments = commentsFetchData.sort((a: Comment, b: Comment) => a.updated_at < b.updated_at ? 1 : -1);
     return (
       <div className="flex justify-center pb-16 px-4">
         <div className="w-full" style={{ maxWidth: 720 }}>
@@ -48,7 +49,7 @@ const Post = async ({ params }: any) => {
           <div className="mt-8">
             <div className="text-slate-400 text-sm py-2 font-bold mx-4"><FontAwesomeIcon className="mr-2" icon={faComment} />{post.comments} Comment{post.comments === 1 ? '' : 's'}</div>
             <div>
-              {comments.map((comment: any, i: number) => <CommentItem
+              {comments.map((comment: Comment, i: number) => <CommentItem
                 key={`comment-${i}`}
                 comment={comment}
               />)}

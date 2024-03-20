@@ -7,9 +7,10 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import styles from '../styles/post.module.css';
+import { Comment } from "@/utils/interfaces";
 
 interface Props {
-  comment: any
+  comment: Comment
 }
 
 const CommentItem: React.FC<Props> = React.memo(({ comment }) => {

@@ -1,9 +1,10 @@
+import { User } from '@/utils/interfaces'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
 interface Props {
-  user: any
+  user: User
   setIsShowingResults: React.Dispatch<React.SetStateAction<boolean>>
 }
 

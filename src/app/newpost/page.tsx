@@ -1,8 +1,7 @@
 import React, { Fragment } from "react";
-import styles from '../../styles/newpost.module.css';
 import { getServerSession } from "next-auth/next";
 import { getUserFromUrl, getUserRepos } from "@/utils/github";
-import NewPostClient from "./page.client";
+import NewPostClient from "./NewPostClient";
 
 const NewPost = async () => {
 

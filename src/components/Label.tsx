@@ -1,8 +1,9 @@
 import { isDark } from '@/utils/functions'
+import { PostLabel } from '@/utils/interfaces'
 import React from 'react'
 
 interface Props {
-  label: any
+  label: PostLabel
 }
 
 const Label: React.FC<Props> = React.memo(({ label }) => {

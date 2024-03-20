@@ -1,3 +1,5 @@
+import { User } from "./interfaces";
+
 // return true if the color is regarded as a dark color
 export const isDark = (hexColor: string): boolean => {
   return parseInt(hexColor.replaceAll('#', ''), 16) < 0xffffff * .6;
@@ -17,7 +19,7 @@ export const getTimeFromNow = (timestamp: string) => {
 }
 
 // remove duplicated objects with same id
-export const removeDuplicate = (array: any[]) => Array.from(array.reduce((map, obj) => map.set(obj.id, obj), new Map()).values());
+export const removeDuplicate = (array: User[]) => Array.from(array.reduce((map, obj) => map.set(obj.id, obj), new Map()).values());
 
 // get random items in an array
 export const getRandomItems = (array: any[], count: number) => {

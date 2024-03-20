@@ -11,11 +11,12 @@ import UIWMarkdownEditor from '@uiw/react-markdown-editor';
 import { isDark } from '@/utils/functions';
 import Label from '@/components/Label';
 import { labelColors, labels } from '@/utils/constants';
+import { Post, User } from '@/utils/interfaces';
 
 interface Props {
-  owner: any
-  authUser: any
-  post: any
+  owner: User
+  authUser: User
+  post: Post
 }
 
 const PostBody = ({ owner, authUser, post }: Props) => {
@@ -67,8 +68,8 @@ const PostBody = ({ owner, authUser, post }: Props) => {
     setSelectedLabels([...tempSelectedLabels]);
     setIsEditting(false);
     await updateIssue(
-      post.repository_url.match(/\/repos\/([^\/]+)\/([^\/]+)/)[1],
-      post.repository_url.match(/\/repos\/([^\/]+)\/([^\/]+)/)[2],
+      post.repository_url.match(/\/repos\/([^\/]+)\/([^\/]+)/)?.[1] || '',
+      post.repository_url.match(/\/repos\/([^\/]+)\/([^\/]+)/)?.[2] || '',
       post.number,
       {
         title: tempTitle,
@@ -81,8 +82,8 @@ const PostBody = ({ owner, authUser, post }: Props) => {
   // delete post
   const deletePost = async () => {
     await closeIssue(
-      post.repository_url.match(/\/repos\/([^\/]+)\/([^\/]+)/)[1],
-      post.repository_url.match(/\/repos\/([^\/]+)\/([^\/]+)/)[2],
+      post.repository_url.match(/\/repos\/([^\/]+)\/([^\/]+)/)?.[1] || '',
+      post.repository_url.match(/\/repos\/([^\/]+)\/([^\/]+)/)?.[2] || '',
       post.number,
     );
     router.push(`/${owner.login}`);

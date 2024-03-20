@@ -4,21 +4,22 @@ import styles from '../../styles/profile.module.css';
 import PostItem from "@/components/PostItem";
 import Spinner from "@/components/Spinner";
 import { getUserIssues } from "@/utils/github";
+import { Post, User } from '@/utils/interfaces';
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 interface Props {
-  authUser: any
-  user: any
-  initialPosts: any[]
+  authUser: User
+  user: User
+  initialPosts: Post[]
 }
 
 const Posts: React.FC<Props> = ({ authUser, user, initialPosts }) => {
 
   const router = useRouter();
   const { username } = useParams();
-  const [posts, setPosts] = useState<any[]>(initialPosts);
+  const [posts, setPosts] = useState<Post[]>(initialPosts);
   const [page, setPage] = useState(1);
   const [isLastPage, setIsLastPage] = useState(initialPosts.length < 10);
   const [isLoadingData, setIsLoadingData] = useState(false);

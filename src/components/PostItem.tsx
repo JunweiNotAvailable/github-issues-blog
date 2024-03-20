@@ -6,9 +6,10 @@ import { faComment } from "@fortawesome/free-regular-svg-icons";
 import { useRouter } from "next/navigation";
 import React from "react";
 import Label from "./Label";
+import { PostLabel, Post } from "@/utils/interfaces";
 
 interface Props {
-  post: any
+  post: Post
 }
 
 const PostItem: React.FC<Props> = React.memo(({ post }) => {
@@ -16,7 +17,7 @@ const PostItem: React.FC<Props> = React.memo(({ post }) => {
   const router = useRouter();
 
   // get post route - /user/repo/issue_number
-  const getRoute = () => `/${post.repository_url.match(/\/repos\/([^\/]+)\/([^\/]+)/)[1]}/${post.repository_url.match(/\/repos\/([^\/]+)\/([^\/]+)/)[2]}/${post.number}`;
+  const getRoute = () => `/${post.repository_url.match(/\/repos\/([^\/]+)\/([^\/]+)/)?.[1]}/${post.repository_url.match(/\/repos\/([^\/]+)\/([^\/]+)/)?.[2]}/${post.number}`;
 
   return (
     <div className={`${styles.postItem} mb-4 py-4 rounded-lg cursor-pointer`} onClick={() => router.push(getRoute())}>
@@ -33,7 +34,7 @@ const PostItem: React.FC<Props> = React.memo(({ post }) => {
         </div>
         {/* labels */}
         <div className="flex flex-wrap mt-3">
-          {post.labels.map((label: any, i: number) => <Label key={`${post.id}-${label.name}`} label={label} />)}
+          {post.labels.map((label: PostLabel, i: number) => <Label key={`${post.id}-${label.name}`} label={label} />)}
         </div>
       </div>
       {/* comments button */}

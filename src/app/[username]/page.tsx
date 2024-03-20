@@ -4,6 +4,7 @@ import Link from "next/link";
 import styles from '../../styles/profile.module.css';
 import Posts from "./Posts";
 import Image from "next/image";
+import { Post } from "@/utils/interfaces";
 
 
 const Profile = async ({ params }: any) => {
@@ -21,7 +22,7 @@ const Profile = async ({ params }: any) => {
     }
     // Get posts
     const { issues, totalCount } = await getUserIssues(username as string, 1) || {};
-    const posts = issues.sort((a: any, b: any) => a.updated_at < b.updated_at ? 1 : -1);
+    const posts = issues.sort((a: Post, b: Post) => a.updated_at < b.updated_at ? 1 : -1);
     return (
       <div className="flex justify-center">
         <div className="flex flex-col md:flex-row w-full py-12 px-4" style={{ maxWidth: 1024 }}>
