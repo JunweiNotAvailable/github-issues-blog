@@ -91,7 +91,7 @@ const NewPostClient: React.FC<Props> = ({ username, repos }) => {
           <MarkdownEditor source={body} setSource={setBody} />
         </div>
         {/* submit button */}
-        <div className="hidden md:flex justify-end mt-3">
+        <div className="flex justify-end mt-3">
           <button className={`${styles.submitButton} ${isValidPost && !isPosting ? '' : styles.disabled} shadow rounded-md py-1.5 px-8 text-sm font-bold `} onClick={submitPost} disabled={!isValidPost || isPosting}>{isPosting ? <Spinner size={20} color="#fff" /> : 'Post'}</button>
         </div>
       </div>
