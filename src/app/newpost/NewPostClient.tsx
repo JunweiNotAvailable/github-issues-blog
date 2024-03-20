@@ -95,43 +95,7 @@ const NewPostClient: React.FC<Props> = ({ username, repos }) => {
           <button className={`${styles.submitButton} ${isValidPost && !isPosting ? '' : styles.disabled} shadow rounded-md py-1.5 px-8 text-sm font-bold `} onClick={submitPost} disabled={!isValidPost || isPosting}>{isPosting ? <Spinner size={20} color="#fff" /> : 'Post'}</button>
         </div>
       </div>
-
-      {/* labels */}
-      <div className="mt-2 md:mt-0 w-full md:w-64 md:ml-8 box-border">
-        {/* selected */}
-        <div className="flex flex-wrap">
-          {selectedLabels.map((label, i) => <div className="flex rounded-full items-center m-1 text-xs cursor-default border py-1 px-2" key={`selected-${i}`}
-            style={{
-              borderColor: label.color,
-              background: label.color + '88',
-              color: isDark(label.color) ? '#fff' : '#000'
-            }}
-          >
-            {label.name}
-            <FontAwesomeIcon className="ml-1 p-0.5 cursor-pointer" icon={faTimes} onClick={() => setSelectedLabels(prev => prev.filter(l => l.name !== label.name))} />
-          </div>)}
-        </div>
-        {/* all */}
-        <div className="text-sm font-bold mt-2">Labels</div>
-        <div className="flex flex-col mt-1 border rounded-md shadow-sm overflow-hidden">
-          {labels.slice(0, 9).map((label, i) => <button className={`${selectedLabels.find(l => l.name === label) ? styles.selected : ''} flex justify-between items-center py-2 px-3 text-left text-sm hover:bg-slate-100`} key={`label-${i}`} onClick={() => setSelectedLabels(prev => prev.find(l => l.name === label) ? prev.filter(l => l.name !== label) : [...prev, { name: label, color: labelColors[i] }])}>
-            <div className="flex items-center">
-              <div className='rounded-full w-3 h-3 border border-slate-300 mr-2' style={{ background: labelColors[i] }} />
-              {label}
-            </div>
-            {selectedLabels.find(l => l.name === label) && <FontAwesomeIcon icon={faCheck} color="#0E8A16" />}
-          </button>)}
-        </div>
-        <div className={`flex mt-2`}>
-          <input className={`${styles.input} border text-sm py-1 px-2 rounded flex-1 min-w-0`} placeholder="Add your own label" value={customLabelInput} onInput={(e: React.ChangeEvent<HTMLInputElement>) => setCustomLabelInput(e.target.value)} />
-          <button className={`${styles.submitButton} text-sm px-4 ml-1 rounded`} onClick={() => (customLabelInput.length > 0 && !selectedLabels.find(l => l.name === customLabelInput)) && setSelectedLabels(prev => [...prev, { name: customLabelInput, color: '#e0e4e8' }])}>Add</button>
-        </div>
-      </div>
-
-      {/* mobile submit button */}
-      <div className="flex md:hidden justify-end mt-10">
-        <button className={`${styles.submitButton} ${isValidPost ? '' : styles.disabled} shadow rounded-md py-1.5 px-8 text-sm font-bold`} onClick={submitPost} disabled={!isValidPost}>Post</button>
-      </div>
+      
     </>
   );
 }

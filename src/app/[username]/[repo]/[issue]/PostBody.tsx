@@ -11,7 +11,7 @@ import UIWMarkdownEditor from '@uiw/react-markdown-editor';
 import { isDark } from '@/utils/functions';
 import Label from '@/components/Label';
 import { labelColors, labels } from '@/utils/constants';
-import { Post, User } from '@/utils/interfaces';
+import { Post, PostLabel, User } from '@/utils/interfaces';
 
 interface Props {
   owner: User
@@ -126,36 +126,6 @@ const PostBody = ({ owner, authUser, post }: Props) => {
           {isEditting ?
             <div className="mt-2 flex md:flex-row flex-col">
               <div className={`${styles.inputGroup} flex-1`}><MarkdownEditor source={tempBody} setSource={setTempBody} /></div>
-              <div className="w-full md:w-40 mt-4 md:mt-0 md:ml-8 box-border">
-                {/* selected */}
-                <div className="flex flex-wrap">
-                  {tempSelectedLabels.map((label, i) => <div className="flex rounded-full items-center m-1 text-xs cursor-default border py-1 px-2" key={`selected-${i}`}
-                    style={{
-                      borderColor: label.color,
-                      background: label.color + '88',
-                      color: isDark(`#${label.color}`) ? '#fff' : '#000'
-                    }}
-                  >
-                    {label.name}
-                    <FontAwesomeIcon className="ml-1 p-0.5 cursor-pointer" icon={faTimes} onClick={() => setTempSelectedLabels(prev => prev.filter(l => l.name !== label.name))} />
-                  </div>)}
-                </div>
-                {/* all */}
-                <div className="text-xs font-bold mt-2">Labels</div>
-                <div className="flex flex-col mt-1 border rounded-md shadow-sm overflow-hidden">
-                  {labels.slice(0, 9).map((label, i) => <button className={`${tempSelectedLabels.find(l => l.name === label) ? styles.selected : ''} flex justify-between items-center py-2 px-3 text-left text-xs`} key={`label-${i}`} onClick={() => setTempSelectedLabels(prev => prev.find(l => l.name === label) ? prev.filter(l => l.name !== label) : [...prev, { name: label, color: labelColors[i] }])}>
-                    <div className="flex items-center">
-                      <div className='rounded-full w-3 h-3 border border-slate-300 mr-2' style={{ background: labelColors[i] }} />
-                      {label}
-                    </div>
-                    {tempSelectedLabels.find(l => l.name === label) && <FontAwesomeIcon icon={faCheck} color="#0E8A16" />}
-                  </button>)}
-                </div>
-                <div className={`flex mt-2`}>
-                  <input className={`${styles.input} border text-xs py-1 px-2 rounded flex-1 min-w-0`} placeholder="Add your own label" value={customLabelInput} onInput={(e: React.ChangeEvent<HTMLInputElement>) => setCustomLabelInput(e.target.value)} />
-                  <button className={`blue-button text-xs px-4 ml-1 rounded`} onClick={() => (customLabelInput.length > 0 && !selectedLabels.find(l => l.name === customLabelInput)) && setTempSelectedLabels(prev => [...prev, { name: customLabelInput, color: '#e0e4e8' }])}>Add</button>
-                </div>
-              </div>
             </div>
             :
             <div className="mt-2">
@@ -163,7 +133,7 @@ const PostBody = ({ owner, authUser, post }: Props) => {
             </div>}
           {/* labels */}
           {!isEditting && <div className="flex flex-wrap mt-3">
-            {selectedLabels.map((label: any, i: number) => <Label key={`${post.id}-${label.name}`} label={label} />)}
+            {selectedLabels.map((label: PostLabel, i: number) => <Label key={`${post.id}-${label.name}`} label={label} />)}
           </div>}
         </div>
       </div>
