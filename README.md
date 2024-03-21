@@ -34,8 +34,8 @@ This is a blog app built with [Next.js 14](https://nextjs.org). Visit it here: h
 This app is available on https://issuesblog.vercel.app
 ### On your computer
 To start this project on your computer:
-1. Clone the Repository: `git clone https://github.com/JunweiNotAvailable/issuesblog`
-2. Navigate to the project directory: `cd issuesblog`
+1. Clone the Repository: `git clone https://github.com/JunweiNotAvailable/github-issues-blog`
+2. Navigate to the project directory
 3. Install dependencies: `npm install`
 4. Run the development server: `npm run dev`
 5. Open http://localhost:3000 on your browser
