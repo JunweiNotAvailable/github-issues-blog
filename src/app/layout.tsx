@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar'
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import NextTopLoader from 'nextjs-toploader'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 config.autoAddCss = false;
 
 const inter = Inter({ subsets: ['latin'] })
@@ -35,6 +36,7 @@ export default function RootLayout({
             {children}
           </div>
         </NextAuthProvider>
+        <SpeedInsights />
       </body>
     </html>
   )
